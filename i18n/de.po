@@ -1,0 +1,176 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-26 19:58+0200\n"
+"PO-Revision-Date: 2010-10-26 20:26+0100\n"
+"Last-Translator: Tilman Blumenbach <tilman@ax86.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../main.c:107
+#, c-format
+msgid ""
+"Additionally, the following environment variables are recognized:\n"
+"  %s\t\tSearch path for desktop entry files (follows standard PATH\n"
+"\t\t\t\tsyntax). The desktop entries have to be of type '%s'\n"
+"\t\t\t\tor 'XSession'.\n"
+"\t\t\t\tDefault: %s\n"
+"  %s\tSearch path for text session files (follows standard PATH\n"
+"\t\t\t\tsyntax). Text session files are simple shell scripts. Non-executable\n"
+"\t\t\t\tfiles are skipped.\n"
+"\t\t\t\tDefault: %s\n"
+"  %s\t\tAdditional arguments for the X server.\n"
+"\n"
+msgstr ""
+"Zusätzlich werden folgende Umgebungsvariablen erkannt:\n"
+"  %s\t\tSuchpfad für Desktop Entry-Dateien (nutzt geläufige PATH-\n"
+"\t\t\t\tSyntax). Die Desktop Entry-Dateien müssen vom Typ '%s'\n"
+"\t\t\t\toder 'XSession' sein.\n"
+"\t\t\t\tVorgabewert: %s\n"
+"  %s\tSuchpfad für Textsitzungsdateien (nutzt geläufige PATH-\n"
+"\t\t\t\tSyntax). Textsitzungsdateien sind einfache Shellskripte. Nicht\n"
+"\t\t\t\tausführbare Dateien werden übersprungen.\n"
+"\t\t\t\tVorgabewert: %s\n"
+"  %s\t\tZusätzliche Argumente für den X-Server.\n"
+"\n"
+
+#: ../main.c:125
+msgid "Compile-time defaults:"
+msgstr "Beim Kompillieren gemachte Vorgaben:"
+
+#: ../main.c:126
+#, c-format
+msgid "  Gettext message catalog directory\t%s\n"
+msgstr "  Verzeichnis für Gettext-Nachrichtenkataloge:\t%s\n"
+
+#: ../main.c:127
+#, c-format
+msgid "  Session save file\t\t\t~/%s\n"
+msgstr "  Sitzungsspeicherdatei:\t\t\t~/%s\n"
+
+#: ../main.c:134
+#, c-format
+msgid ""
+"Compiled on: %s\n"
+"\n"
+msgstr ""
+"Kompilliert am: %s\n"
+"\n"
+
+#: ../main.c:137
+msgid "Released under the BSD license."
+msgstr "Veröffentlicht unter der BSD-Lizenz."
+
+#: ../main.c:154
+#: ../main.c:157
+msgid "Show help options"
+msgstr "Hilfeoptionen anzeigen"
+
+#: ../main.c:159
+msgid "Do not clear the screen on program start and end"
+msgstr "Den Bildschirm bei Programmstart und -ende nicht leeren"
+
+#: ../main.c:160
+msgid "Use file descriptor FD to output the command string (default: 3)"
+msgstr "Dateideskriptor FD zum Ausgeben des Befehls nutzen (Vorgabe: 3)"
+
+#: ../main.c:164
+msgid "Do not remember the last used session"
+msgstr "Sich nicht an die letzte Sitzung erinnern"
+
+#: ../main.c:166
+msgid "Display the program version"
+msgstr "Die Programmversion zeigen"
+
+#: ../main.c:194
+#, c-format
+msgid "  (%d) %s\n"
+msgstr "  (%d) %s\n"
+
+#: ../main.c:198
+#, c-format
+msgid "  (%d) Text: %s\n"
+msgstr "  (%d) Text: %s\n"
+
+#: ../main.c:215
+msgid ""
+"\n"
+"Use EOF (e. g. ^D) to quit."
+msgstr ""
+"\n"
+"Benutzen Sie EOF (z. B. ^D) zum Verlassen."
+
+#: ../main.c:326
+msgid ""
+"Welcome, please choose a session:\n"
+"\n"
+msgstr ""
+"Willkommen, bitte wählen Sie eine Sitzung:\n"
+"\n"
+
+#: ../main.c:327
+msgid "  (0) continue using the current shell\n"
+msgstr "  (0) Die aktuelle Shell weiterbenutzen\n"
+
+#: ../main.c:336
+#, c-format
+msgid ""
+"\n"
+"Your choice [%s]: "
+msgstr ""
+"\n"
+"Ihre Wahl [%s]: "
+
+#: ../main.c:341
+msgid ""
+"\n"
+"Your choice [<current shell>]: "
+msgstr ""
+"\n"
+"Ihre Wahl [<aktuelle Shell>]: "
+
+#: ../main.c:344
+msgid ""
+"\n"
+"Your choice: "
+msgstr ""
+"\n"
+"Ihre Wahl: "
+
+#: ../main.c:359
+msgid "There is no default session! Please make a choice."
+msgstr "Es gibt keine Standardsitzung! Bitte treffen Sie eine Wahl."
+
+#: ../main.c:374
+msgid "Please enter a number."
+msgstr "Bitte geben Sie eine Zahl ein."
+
+#: ../main.c:385
+msgid "No such session. Please try again..."
+msgstr "Keine solche Sitzung. Bitte versuchen Sie es erneut..."
+
+#: ../main.c:397
+msgid "Could not process session! Please try again..."
+msgstr "Konnte Sitzung nicht verarbeiten! Bitte versuchen Sie es erneut..."
+
+#: ../main.c:439
+msgid "- a text-based session chooser"
+msgstr "- ein textbasierter Sitzungswähler"
+
+#: ../main.c:440
+msgid ""
+"Displays a list of available sessions and prints a command line for the chosen session to the\n"
+"file descriptor given by the -o option."
+msgstr ""
+"Zeigt eine Liste verfügbarer Sitzungen an und gibt einen Befehl für die gewählte Sitzung\n"
+"auf den durch die \"-o\"-Option gegebenen Dateideskriptor aus."
+
