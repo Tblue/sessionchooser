@@ -1,2 +1,1 @@
-- Do not call terminfo_init() if no_lastsession == TRUE.
 - Allow the user to suppress recording of the last used session when choosing a session?

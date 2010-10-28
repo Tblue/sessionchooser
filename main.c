@@ -500,7 +500,7 @@ int main( int argc, char **argv )
     session_list = g_slist_sort( session_list, _session_sort_func );
 
     /* Do some more initializations (for features used later on). */
-    if( ! terminfo_init() )
+    if( ! no_clear_screen && ! terminfo_init() )
     {
         g_error( "Could not initialize terminfo DB." ); /* calls abort() */
     }
