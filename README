@@ -1,0 +1,36 @@
+sessionchooser - a text-based session chooser
+(c) 2010 by Tilman Blumenbach <tilman@ax86.net>
+
+sessionchooser is a simple (and admittedly not very user-friendly, what
+ever that means), text-based session chooser. It reads Desktop Entry files
+as defined by the Desktop Entry Specification, version 1.0 [1] but also
+supports so-called "text sessions" -- while sessions defined in Desktop
+Entry files are sessions depending on a X server, text sessions are simply
+(but not necessarily simple) shell scripts which can contain pretty much
+everything, even Python scripts (provided you didn't forget the shebang).
+You may also return to the current shell by entering "0" at the
+sessionchooser prompt. The session you chose will be remembered for the
+next run and becomes the default choice (just press enter).
+
+By default, X sessions are searched in /etc/X11/sessions/, and text sessions
+are searched in /etc/sessionchooser/textsessions/. You may change these
+defaults at compile time (in defines.h) or override them on runtime by
+setting the environment variables SESSIONCHOOSER_XPATH and
+SESSIONCHOOSER_TEXTPATH. They both follow standard PATH syntax, i. e.
+you may specify a list of directories to search by separating them with
+colons. Empty paths are interpreted as the current working directory.
+
+sessionchooser is intended to be run right after login. To do that, you
+simply have to "source" the helper script (called "helper.sh" in this
+distribution; install it somewhere on your system -- you can rename it
+if you want), for example from your ~/.bash_login (for bash) or
+~/.zprofile (for zsh).
+
+X sessions will use the next free X display and sessionchooser will try
+start the X server on the current VT for your convenience. You may specify
+additional arguments for the X server by setting the environment variable
+SESSIONCHOOSER_XARGS (it may be a good idea to set it to "-nolisten tcp -br",
+for example).
+
+
+[1] http://standards.freedesktop.org/desktop-entry-spec/1.0/
