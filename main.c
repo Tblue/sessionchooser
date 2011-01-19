@@ -302,6 +302,8 @@ gboolean ask_for_session( GSList *session_list )
     SessSession *default_session = NULL;
     SessSession *chosen_session;
     gboolean default_is_current_shell = FALSE;
+    /** @brief Ignore no_lastsession and do not remember the user's choice? */
+    gboolean no_lastsession_override;
 
     if( _last_session )
     {   /* We got the name of the last chosen session, try to find it: */
@@ -323,11 +325,17 @@ gboolean ask_for_session( GSList *session_list )
             terminfo_clear_screen();
         }
 
-        fputs( _( "Welcome, please choose a session:\n\n" ), stdout );
+        fputs( _( "Welcome, please choose a session!\n" ), stdout );
+        if( ! no_lastsession )
+        {
+            fputs( _( "Append '!' to the number to prevent remembering your choice.\n\n" ),
+                stdout );
+        }
         fputs( _( "  (0) continue using the current shell\n" ), stdout );
 
         chosen_session = NULL;
         _sess_num = 1;
+        no_lastsession_override = FALSE;
 
         g_slist_foreach( session_list, _display_session, NULL );
 
@@ -349,7 +357,11 @@ gboolean ask_for_session( GSList *session_list )
             return FALSE;
         }
         else if( *buf == '\n' )
-        {   /* Use default value. */
+        {   /* Use default value.
+             * NOTE: No support for no_lastsession_override here because if we
+             *       get here, then we are going to start the default session!
+             *       Remembering this or not doesn't make any difference.
+             */
             if( default_session )
             {
                 chosen_session = default_session;
@@ -375,7 +387,12 @@ gboolean ask_for_session( GSList *session_list )
                 sleep( 1 );
                 continue;
             }
-            else if( ! choice )
+            else if( *endptr == '!' )
+            {
+                no_lastsession_override = TRUE;
+            }
+
+            if( ! choice )
             {   /* We want to continue with the current shell. */
                 break;
             }
@@ -400,7 +417,7 @@ gboolean ask_for_session( GSList *session_list )
 
     /* If we get here, everything went fine... Let's try to save the last
      * used session, if requested: */
-    if( ! no_lastsession )
+    if( ! no_lastsession && ! no_lastsession_override )
     {
         /* If chosen_session is NULL, then we want to use the current shell. */
         session_name = chosen_session
