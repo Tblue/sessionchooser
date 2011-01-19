@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-26 19:58+0200\n"
+"POT-Creation-Date: 2011-01-19 20:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,56 +95,60 @@ msgid ""
 "Use EOF (e. g. ^D) to quit."
 msgstr ""
 
-#: ../main.c:326
+#: ../main.c:328
+msgid "Welcome, please choose a session!\n"
+msgstr ""
+
+#: ../main.c:331
 msgid ""
-"Welcome, please choose a session:\n"
+"Append '!' to the number to prevent remembering your choice.\n"
 "\n"
 msgstr ""
 
-#: ../main.c:327
+#: ../main.c:334
 msgid "  (0) continue using the current shell\n"
 msgstr ""
 
-#: ../main.c:336
+#: ../main.c:344
 #, c-format
 msgid ""
 "\n"
 "Your choice [%s]: "
 msgstr ""
 
-#: ../main.c:341
+#: ../main.c:349
 msgid ""
 "\n"
 "Your choice [<current shell>]: "
 msgstr ""
 
-#: ../main.c:344
+#: ../main.c:352
 msgid ""
 "\n"
 "Your choice: "
 msgstr ""
 
-#: ../main.c:359
+#: ../main.c:371
 msgid "There is no default session! Please make a choice."
 msgstr ""
 
-#: ../main.c:374
+#: ../main.c:386
 msgid "Please enter a number."
 msgstr ""
 
-#: ../main.c:385
+#: ../main.c:402
 msgid "No such session. Please try again..."
 msgstr ""
 
-#: ../main.c:397
+#: ../main.c:414
 msgid "Could not process session! Please try again..."
 msgstr ""
 
-#: ../main.c:439
+#: ../main.c:456
 msgid "- a text-based session chooser"
 msgstr ""
 
-#: ../main.c:440
+#: ../main.c:457
 msgid ""
 "Displays a list of available sessions and prints a command line for the "
 "chosen session to the\n"

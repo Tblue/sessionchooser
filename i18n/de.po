@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-26 19:58+0200\n"
-"PO-Revision-Date: 2010-10-26 20:26+0100\n"
+"POT-Creation-Date: 2011-01-19 20:30+0100\n"
+"PO-Revision-Date: 2011-01-19 20:31+0100\n"
 "Last-Translator: Tilman Blumenbach <tilman@ax86.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -109,19 +109,23 @@ msgstr ""
 "\n"
 "Benutzen Sie EOF (z. B. ^D) zum Verlassen."
 
-#: ../main.c:326
+#: ../main.c:328
+msgid "Welcome, please choose a session!\n"
+msgstr "Willkommen, bitte wählen Sie eine Sitzung:\n"
+
+#: ../main.c:331
 msgid ""
-"Welcome, please choose a session:\n"
+"Append '!' to the number to prevent remembering your choice.\n"
 "\n"
 msgstr ""
-"Willkommen, bitte wählen Sie eine Sitzung:\n"
+"Hängen Sie '!' an die Zahl an, damit die Wahl nicht gespeichert wird.\n"
 "\n"
 
-#: ../main.c:327
+#: ../main.c:334
 msgid "  (0) continue using the current shell\n"
 msgstr "  (0) Die aktuelle Shell weiterbenutzen\n"
 
-#: ../main.c:336
+#: ../main.c:344
 #, c-format
 msgid ""
 "\n"
@@ -130,7 +134,7 @@ msgstr ""
 "\n"
 "Ihre Wahl [%s]: "
 
-#: ../main.c:341
+#: ../main.c:349
 msgid ""
 "\n"
 "Your choice [<current shell>]: "
@@ -138,7 +142,7 @@ msgstr ""
 "\n"
 "Ihre Wahl [<aktuelle Shell>]: "
 
-#: ../main.c:344
+#: ../main.c:352
 msgid ""
 "\n"
 "Your choice: "
@@ -146,27 +150,27 @@ msgstr ""
 "\n"
 "Ihre Wahl: "
 
-#: ../main.c:359
+#: ../main.c:371
 msgid "There is no default session! Please make a choice."
 msgstr "Es gibt keine Standardsitzung! Bitte treffen Sie eine Wahl."
 
-#: ../main.c:374
+#: ../main.c:386
 msgid "Please enter a number."
 msgstr "Bitte geben Sie eine Zahl ein."
 
-#: ../main.c:385
+#: ../main.c:402
 msgid "No such session. Please try again..."
 msgstr "Keine solche Sitzung. Bitte versuchen Sie es erneut..."
 
-#: ../main.c:397
+#: ../main.c:414
 msgid "Could not process session! Please try again..."
 msgstr "Konnte Sitzung nicht verarbeiten! Bitte versuchen Sie es erneut..."
 
-#: ../main.c:439
+#: ../main.c:456
 msgid "- a text-based session chooser"
 msgstr "- ein textbasierter Sitzungswähler"
 
-#: ../main.c:440
+#: ../main.c:457
 msgid ""
 "Displays a list of available sessions and prints a command line for the chosen session to the\n"
 "file descriptor given by the -o option."
