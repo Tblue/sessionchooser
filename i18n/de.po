@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-19 20:30+0100\n"
-"PO-Revision-Date: 2011-01-19 20:31+0100\n"
+"PO-Revision-Date: 2011-01-21 21:42+0100\n"
 "Last-Translator: Tilman Blumenbach <tilman@ax86.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -111,7 +111,7 @@ msgstr ""
 
 #: ../main.c:328
 msgid "Welcome, please choose a session!\n"
-msgstr "Willkommen, bitte wählen Sie eine Sitzung:\n"
+msgstr "Willkommen, bitte wählen Sie eine Sitzung!\n"
 
 #: ../main.c:331
 msgid ""
