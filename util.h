@@ -54,7 +54,8 @@ void sess_strsplit_foreach( const gchar *string, const gchar *delimiter,
  * @brief Get the next free X display.
  *
  * Algorithm borrowed from qingy, http://qingy.sf.net
- * 
+ *
+ * @todo   This probably only works with Xorg, what about other X servers?
  * @return The next free X display, or -1 on failure.
  */
 gint get_next_free_XDisplay( void );
@@ -63,6 +64,7 @@ gint get_next_free_XDisplay( void );
  *
  * Stolen from qingy, http://qingy.sf.net
  *
+ * @todo   This is Linux-specific! Make it portable (if possible). 
  * @return The active VT, or -1 on failure.
  */
 gshort get_active_vt( void );
