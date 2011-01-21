@@ -1,0 +1,58 @@
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=sessionchooser-bzr
+pkgver=42
+pkgrel=1
+pkgdesc=''
+pkgdesc='A text-based session chooser'
+arch=(i686 x86_64)
+url=''
+license=('BSD')
+depends=(ncurses glib2)
+
+_bzrtrunk='http://bazaar.launchpad.net/~tblue/+junk/sessionchooser'
+_bzrmod='sessionchooser'
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to Bazaar server...."
+
+  if [ -d $_bzrmod ] ; then
+    cd ${_bzrmod} && bzr --no-plugins pull ${_bzrtrunk} -r ${pkgver}
+    msg "The local files are updated."
+  else
+    bzr --no-plugins branch ${_bzrtrunk} ${_bzrmod} -q -r ${pkgver}
+  fi
+
+  msg "Bazaar checkout done or server timeout"
+  msg "Starting make..."
+
+  rm -rf "$srcdir/$_bzrmod-build"
+  cp -r "$srcdir/$_bzrmod" "$srcdir/$_bzrmod-build"
+  cd "$srcdir/$_bzrmod-build"
+
+  #
+  # BUILD HERE
+  #
+
+  make distclean
+  make
+
+  cd i18n
+  make
+}
+
+package() {
+  cd "$srcdir/$_bzrmod-build"
+
+  make DESTDIR="${pkgdir}/" install || return 1
+ 
+  mkdir -p "${pkgdir}/etc/sessionchooser/textsessions"
+  install -D dist/helper.sh "${pkgdir}/etc/sessionchooser/helper.sh"
+  install -Dm644 README "${pkgdir}/usr/share/doc/sessionchooser/README"
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+
+  cd i18n
+  for i in *.mo; do
+    install -Dm644 "${i}" "${pkgdir}/usr/share/locale/$(basename "${i}" .mo)/LC_MESSAGES/sessionchooser.mo"
+  done
+} 
