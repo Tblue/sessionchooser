@@ -42,7 +42,7 @@
 /**
  * @brief Application version.
  */
-#define SESS_APP_VERSION "1.2.0"
+#define SESS_APP_VERSION "1.2.1"
 /**
  * @brief Default search path for X session files (desktop entries).
  */

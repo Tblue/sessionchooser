@@ -1,3 +1,7 @@
+Version 1.2.1       2011-01-21 Tilman Blumenbach <tilman@ax86.net>
+    - Minor code optimizations
+    - Only write lastsession file if necessary (session has changed).
+
 Version 1.2.0       2011-01-19 Tilman Blumenbach <tilman@ax86.net>
     - Feature: Suppress remembering of chosen session by appending '!' to the
                session number at the prompt.
