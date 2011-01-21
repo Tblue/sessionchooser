@@ -1,10 +1,10 @@
 sessionchooser - a text-based session chooser
 (c) 2010 by Tilman Blumenbach <tilman@ax86.net>
 
-sessionchooser is a simple (and admittedly not very user-friendly, what
-ever that means), text-based session chooser. It reads Desktop Entry files
-as defined by the Desktop Entry Specification, version 1.0 [1] but also
-supports so-called "text sessions" -- while sessions defined in Desktop
+sessionchooser is a simple (and admittedly not very user-friendly,
+whatever that means), text-based session chooser. It reads Desktop Entry
+files as defined by the Desktop Entry Specification, version 1.0 [1] but
+also supports so-called "text sessions" -- while sessions defined in Desktop
 Entry files are sessions depending on a X server, text sessions are simply
 (but not necessarily simple) shell scripts which can contain pretty much
 everything, even Python scripts (provided you didn't forget the shebang).
