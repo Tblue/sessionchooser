@@ -49,14 +49,8 @@
  * Used by _display_session(). Initialize to 1.
  */
 static guint _sess_num;
-/**
- * @brief The last used session's normalized name.
- *
- * If the last used session was the current shell, this variable points
- * to an empty string.
- */
-static gchar *_last_session = NULL;
 
+/* The following variables get set by the command line parser. */
 /**
  * @brief Whether to NOT clear the screen using terminfo on program start
  *        and end.
@@ -74,6 +68,8 @@ static gboolean no_lastsession = FALSE;
 
 /**
  * @brief The option context used to parse command line options in main().
+ *
+ * Used by _opt_info_cb().
  */
 static GOptionContext *opt_ctx = NULL;
 
@@ -289,10 +285,13 @@ gboolean process_session( SessSession *sess )
  * @brief Ask the user which session he would like to start.
  * @param session_list GSList of SessSession objects the user can choose
  *                     from.
+ * @param last_session Last used session's normalized name or NULL.
+ *                     "" (empty string) means that the last session was
+ *                     the shell.
  * @return TRUE if the user chose either a X session or a text session.
  *         FALSE if he/she wants to continue with the current shell.
  */
-gboolean ask_for_session( GSList *session_list )
+gboolean ask_for_session( GSList *session_list, gchar *last_session )
 {
     GError *error = NULL;
     unsigned int choice;
@@ -301,20 +300,22 @@ gboolean ask_for_session( GSList *session_list )
     gchar *session_name;
     SessSession *default_session = NULL;
     SessSession *chosen_session;
+    /* Strictly speaking, this variable is not necessary; however, for the
+       sake of code understandability, it is being used. :-) */
     gboolean default_is_current_shell = FALSE;
     /** @brief Ignore no_lastsession and do not remember the user's choice? */
     gboolean no_lastsession_override;
 
-    if( _last_session )
+    if( last_session )
     {   /* We got the name of the last chosen session, try to find it: */
-        if( ! *_last_session )
+        if( ! *last_session )
         {   /* An empty string means the current shell. */
             default_is_current_shell = TRUE;
         }
         else
         {
             default_session = sess_session_find_by_name_normalized( session_list,
-                _last_session );
+                last_session );
         }
     }
 
@@ -357,10 +358,11 @@ gboolean ask_for_session( GSList *session_list )
             return FALSE;
         }
         else if( *buf == '\n' )
-        {   /* Use default value.
-             * NOTE: No support for no_lastsession_override here because if we
-             *       get here, then we are going to start the default session!
-             *       Remembering this or not doesn't make any difference.
+        {   /* Use default value. */
+            /* NOTE: No support for no_lastsession_override here because
+             *       if we get here, then we are going to start the
+             *       default session anyway -- the lastsession file won't
+             *       be updated.
              */
             if( default_session )
             {
@@ -424,7 +426,9 @@ gboolean ask_for_session( GSList *session_list )
                 ? sess_session_get_name_normalized( chosen_session )
                 : "";
 
-        if( ! set_last_session( session_name, & error ) )
+        /* Only update if we need to. */
+        if( ( ! last_session || strcmp( session_name, last_session ) != 0 ) &&
+            ! set_last_session( session_name, & error ) )
         {
             g_warning( "Could not save last used session: %s",
                 error->message );
@@ -447,6 +451,13 @@ int main( int argc, char **argv )
 {
     GError *error = NULL;
     const gchar *temp;
+    /**
+     * @brief The last used session's normalized name.
+     *
+     * If the last used session was the current shell, this variable points
+     * to an empty string.
+     */
+    gchar *last_session = NULL;
     GSList *session_list = NULL;
     int ret = 0;
 
@@ -526,10 +537,11 @@ int main( int argc, char **argv )
     /* Read the last used session if we are allowed to do so. */
     if( ! no_lastsession )
     {
-        _last_session = get_last_session();
+        last_session = get_last_session();
     }
+
     /* Now display the list to the user and allow him to select a session. */
-    if( ! ask_for_session( session_list ) )
+    if( ! ask_for_session( session_list, last_session ) )
     {   /* Continue with the current shell... */
         ret = 1;
     }
@@ -542,7 +554,7 @@ int main( int argc, char **argv )
 
     /* Clean up: */
     close( output_fd );
-    g_free( _last_session );
+    g_free( last_session );
     sess_slist_free_all( session_list, TRUE );
 
     return ret;
