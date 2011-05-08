@@ -1,8 +1,7 @@
-# Maintainer: Your Name <youremail@domain.com>
+# Maintainer: Tilman Blumenbach <tilman@ax86.net>
 pkgname=sessionchooser-bzr
 pkgver=42
 pkgrel=1
-pkgdesc=''
 pkgdesc='A text-based session chooser'
 arch=(i686 x86_64)
 url=''
@@ -30,10 +29,7 @@ build() {
   cp -r "$srcdir/$_bzrmod" "$srcdir/$_bzrmod-build"
   cd "$srcdir/$_bzrmod-build"
 
-  #
-  # BUILD HERE
-  #
-
+  # Build starts here
   make distclean
   make
 
@@ -55,4 +51,4 @@ package() {
   for i in *.mo; do
     install -Dm644 "${i}" "${pkgdir}/usr/share/locale/$(basename "${i}" .mo)/LC_MESSAGES/sessionchooser.mo"
   done
-} 
+}
