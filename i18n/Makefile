@@ -1,3 +1,5 @@
+# TODO: Add install target.
+
 .PHONY: clean i18n
 
 i18n: de.mo

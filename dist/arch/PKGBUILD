@@ -30,17 +30,16 @@ build() {
   cd "$srcdir/$_bzrmod-build"
 
   # Build starts here
-  make distclean
-  make
+  make distclean sessionchooser i18n
 
   cd i18n
-  make
+  make clean i18n
 }
 
 package() {
   cd "$srcdir/$_bzrmod-build"
 
-  make DESTDIR="${pkgdir}/" install || return 1
+  make DESTDIR="${pkgdir}/" install
  
   mkdir -p "${pkgdir}/etc/sessionchooser/textsessions"
   install -D dist/helper.sh "${pkgdir}/etc/sessionchooser/helper.sh"
