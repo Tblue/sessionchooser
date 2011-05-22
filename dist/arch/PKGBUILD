@@ -30,7 +30,7 @@ build() {
   cd "$srcdir/$_bzrmod-build"
 
   # Build starts here
-  make distclean sessionchooser i18n
+  make distclean sessionchooser
 
   cd i18n
   make clean i18n
