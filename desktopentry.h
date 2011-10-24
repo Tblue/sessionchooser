@@ -1,6 +1,6 @@
 /* sessionchooser - a text-based session chooser
  *
- * Copyright (c) 2010, Tilman Blumenbach <tilman@ax86.net>
+ * Copyright (c) 2010-2011, Tilman Blumenbach <tilman@ax86.net>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

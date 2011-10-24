@@ -1,5 +1,5 @@
 sessionchooser - a text-based session chooser
-(c) 2010 by Tilman Blumenbach <tilman@ax86.net>
+(c) 2010-2011 by Tilman Blumenbach <tilman@ax86.net>
 
 sessionchooser is a simple (and admittedly not very user-friendly,
 whatever that means), text-based session chooser. It reads Desktop Entry

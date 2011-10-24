@@ -1,6 +1,6 @@
 /* sessionchooser - a text-based session chooser
  *
- * Copyright (c) 2010, Tilman Blumenbach <tilman@ax86.net>
+ * Copyright (c) 2010-2011, Tilman Blumenbach <tilman@ax86.net>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -129,7 +129,7 @@ static gboolean _opt_info_cb( const gchar *opt_name,
         puts( SESS_APP_NAME " v" SESS_APP_VERSION );
         g_printf( _( "Compiled on: %s\n\n" ), __DATE__ " " __TIME__ );
 
-        puts( "(c) 2010 by Tilman Blumenbach <tilman@ax86.net>" );
+        puts( "(c) 2010-2011 by Tilman Blumenbach <tilman@ax86.net>" );
         puts( _( "Released under the BSD license." ) );
 
         exit( 0 );
