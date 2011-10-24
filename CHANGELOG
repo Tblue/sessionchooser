@@ -1,3 +1,8 @@
+Version 1.2.2       2011-10-24 Tilman Blumenbach <tilman@ax86.net>
+    Some minor changes, most notably:
+    - helper.sh: Unset possibly exported variable names before exec.
+    - Tiny translation fix.
+
 Version 1.2.1       2011-01-21 Tilman Blumenbach <tilman@ax86.net>
     - Minor code optimizations
     - Only write lastsession file if necessary (session has changed).
