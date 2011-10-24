@@ -34,10 +34,13 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Delete the temporary file used to store the session command line and
-# unset our own variables.
+# unset our environment variables.
 sess_cleanup() {
-    rm "${_SESS_TMPFILE}"
+    rm -f "${_SESS_TMPFILE}"
+
     unset _SESS_TMPFILE ret
+    # NB: These names are defined in defines.h.
+    unset SESSIONCHOOSER_XPATH SESSIONCHOOSER_TEXTPATH SESSIONCHOOSER_XARGS
     unset -f sess_cleanup
 }
 

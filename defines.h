@@ -50,6 +50,8 @@
 /**
  * @brief Default name for the environment variable used to override the
  *        default search path for X session files (desktop entries).
+ * 
+ *        If you change this, update dist/helper.sh as well.
  */
 #define SESS_XSESSION_SEARCH_PATH_ENV "SESSIONCHOOSER_XPATH"
 /**
@@ -59,11 +61,15 @@
 /**
  * @brief Default name for the environment variable used to override the
  *        default search path for text session files.
+ * 
+ *        If you change this, update dist/helper.sh as well.
  */
 #define SESS_TEXTSESSION_SEARCH_PATH_ENV "SESSIONCHOOSER_TEXTPATH"
 /**
  * @brief Default name for the environment variable used to specify additional
  *        arguments for the X server.
+ * 
+ *        If you change this, update dist/helper.sh as well.
  */
 #define SESS_XARGS_ENV "SESSIONCHOOSER_XARGS"
 /**
