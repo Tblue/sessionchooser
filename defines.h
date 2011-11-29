@@ -46,7 +46,7 @@
 /**
  * @brief Default search path for X session files (desktop entries).
  */
-#define SESS_DEFAULT_XSESSION_SEARCH_PATH "/etc/X11/sessions"
+#define SESS_DEFAULT_XSESSION_SEARCH_PATH "/usr/share/xsessions:/etc/X11/sessions"
 /**
  * @brief Default name for the environment variable used to override the
  *        default search path for X session files (desktop entries).
