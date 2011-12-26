@@ -1,6 +1,8 @@
-Version ?.?.?       ????-??-?? Tilman Blumenbach <tilman@ax86.net>
+Version 1.2.3       2011-12-26 Tilman Blumenbach <tilman@ax86.net>
     - The default SESS_DEFAULT_XSESSION_SEARCH_PATH now contains
       /usr/share/xsessions as well.
+    - Look up bare Exec commands in $PATH (i. e. commands that are
+      not a path).
 
 Version 1.2.2       2011-10-24 Tilman Blumenbach <tilman@ax86.net>
     Some minor changes, most notably:
