@@ -38,9 +38,17 @@ gboolean sess_desktopentry_read( const gchar *path, gchar **app_name,
 {
     GKeyFile *key_file;
     GError *int_error = NULL;
+
     gchar *type;
     gchar *temp_app_name;
     gchar *temp_app_exec;
+    gchar *executable;
+    GString *escaped_exec;
+    
+    gint exec_argc;
+    gchar **exec_argv;
+    gchar **parts;
+    gchar *part;
 
     /* Make sure the caller handles errors properly: */
     g_return_val_if_fail( ! error || ! *error, FALSE );
@@ -100,10 +108,43 @@ gboolean sess_desktopentry_read( const gchar *path, gchar **app_name,
         g_key_file_free( key_file );
         return FALSE;
     }
-    *app_name = temp_app_name;
 
-    /* TODO: Handle escapes in the value of the Exec key, as far as feasible. */
-    *app_exec = temp_app_exec;
+    /* If the Exec key does not contain a full path, we need to search $PATH. */
+    /* Because the executable path can be quoted as well, we use g_shell_parse_argv(). */
+    g_shell_parse_argv( temp_app_exec, & exec_argc, & exec_argv, & int_error );
+    g_free( temp_app_exec );
+    if( int_error )
+    {
+        g_propagate_error( error, int_error );
+        g_free( temp_app_name );
+        g_key_file_free( key_file );
+        return FALSE;
+    }
+    
+    /* Now locate the program in $PATH and escape it. */
+    executable = g_find_program_in_path( *exec_argv );
+    g_free( *exec_argv );
+    *exec_argv = executable;
+
+    /* Finally, stick it all back together. */
+    escaped_exec = g_string_new( NULL );
+    parts = exec_argv;
+    do
+    {
+        part = g_shell_quote( *parts );
+        g_string_append( escaped_exec, part );
+        g_string_append_c( escaped_exec, ' ' );
+        g_free( part );
+    }
+    while( *(++parts) );
+    
+    g_strfreev( exec_argv );
+
+    /* TODO: Handle escapes in the value of the Exec key. Only %i, %c and %k make sense for us. */
+    *app_exec = g_string_free( escaped_exec, FALSE );
+    *app_name = temp_app_name;
+    
+    /*g_debug( "%s => %s (%s)", path, *app_name, *app_exec );*/
     
     g_key_file_free( key_file );
     return TRUE;
