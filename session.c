@@ -61,7 +61,7 @@ gchar *sess_session_get_name_normalized( SessSession *sess )
 
     if( ! sess->name_normalized )
     {   /* Normalize name. */
-        normalized = g_utf8_normalize( sess->name, -1, G_NORMALIZE_ALL );
+        normalized = g_utf8_normalize( sess->name, -1, G_NORMALIZE_NFD );
         if( ! normalized )
         {   /* Invalid UTF-8 string. Use original string (not perfect!): */
             sess->name_normalized = g_strdup( sess->name );
