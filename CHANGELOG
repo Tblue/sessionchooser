@@ -1,3 +1,7 @@
+Version 1.2.4       2012-03-12 Tilman Blumenbach <tilman@ax86.net>
+    - Normalize session names with NFD instead of NFKD (no
+      compatibility decomposition anymore).
+
 Version 1.2.3       2011-12-26 Tilman Blumenbach <tilman@ax86.net>
     - The default SESS_DEFAULT_XSESSION_SEARCH_PATH now contains
       /usr/share/xsessions as well.
