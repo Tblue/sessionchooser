@@ -1,3 +1,7 @@
+Version 1.2.5       2012-04-04 Tilman Blumenbach <tilman@ax86.net>
+    - Handle value of Exec key not being found in $PATH correctly
+      (emit warning and keep going).
+
 Version 1.2.4       2012-03-12 Tilman Blumenbach <tilman@ax86.net>
     - Normalize session names with NFD instead of NFKD (no
       compatibility decomposition anymore).
