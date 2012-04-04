@@ -1,6 +1,6 @@
 /* sessionchooser - a text-based session chooser
  *
- * Copyright (c) 2010-2011, Tilman Blumenbach <tilman@ax86.net>
+ * Copyright (c) 2010-2012, Tilman Blumenbach <tilman@ax86.net>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,9 +58,7 @@ gboolean sess_desktopentry_read( const gchar *path, gchar **app_name,
     g_key_file_load_from_file( key_file, path, G_KEY_FILE_NONE, & int_error );
     if( int_error )
     {   /* Oops, something went wrong... */
-        g_propagate_error( error, int_error );
-        g_key_file_free( key_file );
-        return FALSE;
+        goto error;
     }
 
     /* Now that the file has been parsed, let's see whether this is a
@@ -69,9 +67,7 @@ gboolean sess_desktopentry_read( const gchar *path, gchar **app_name,
         G_KEY_FILE_DESKTOP_KEY_TYPE, & int_error );
     if( int_error )
     {   /* Group or key not found. */
-        g_propagate_error( error, int_error );
-        g_key_file_free( key_file );
-        return FALSE;
+        goto error;
     }
 
     /* Check type -- we need "Application" or "XSession". */
@@ -88,64 +84,71 @@ gboolean sess_desktopentry_read( const gchar *path, gchar **app_name,
     g_free( type );
     
     /* Now let's see whether there is an "Exec" key. */
+    /* TODO: Handle escapes in the value of the Exec key. Only %i, %c and %k make sense for us. */
     temp_app_exec = g_key_file_get_string( key_file, G_KEY_FILE_DESKTOP_GROUP,
         G_KEY_FILE_DESKTOP_KEY_EXEC, & int_error );
     if( int_error )
     {   /* An error occurred, handle as usual: */
-        g_propagate_error( error, int_error );
-        g_key_file_free( key_file );
-        return FALSE;
+        goto error;
     }
 
     /* Get the localized application name: */
     temp_app_name = g_key_file_get_locale_string( key_file,
         G_KEY_FILE_DESKTOP_GROUP, G_KEY_FILE_DESKTOP_KEY_NAME,
-        NULL /* use current locale */, & int_error );
+        /* use current locale */ NULL, & int_error );
     if( int_error )
     {
-        g_propagate_error( error, int_error );
         g_free( temp_app_exec );
-        g_key_file_free( key_file );
-        return FALSE;
+        goto error;
     }
 
     /* If the Exec key does not contain a full path, we need to search $PATH. */
     /* Because the executable path can be quoted as well, we use g_shell_parse_argv(). */
     g_shell_parse_argv( temp_app_exec, & exec_argc, & exec_argv, & int_error );
-    g_free( temp_app_exec );
     if( int_error )
     {
-        g_propagate_error( error, int_error );
+        g_free( temp_app_exec );
         g_free( temp_app_name );
-        g_key_file_free( key_file );
-        return FALSE;
+        goto error;
     }
     
-    /* Now locate the program in $PATH and escape it. */
     executable = g_find_program_in_path( *exec_argv );
-    g_free( *exec_argv );
-    *exec_argv = executable;
+    if( executable )
+    {   /* Program found in $PATH. Rebuild the command line: */
+        g_free( temp_app_exec );
+        g_free( *exec_argv );
+        *exec_argv = executable;
 
-    /* Finally, stick it all back together. */
-    escaped_exec = g_string_new( NULL );
-    parts = exec_argv;
-    do
-    {
-        part = g_shell_quote( *parts );
-        g_string_append( escaped_exec, part );
-        g_string_append_c( escaped_exec, ' ' );
-        g_free( part );
+        escaped_exec = g_string_new( NULL );
+        parts = exec_argv;
+        do
+        {
+            part = g_shell_quote( *parts );
+            g_string_append( escaped_exec, part );
+            g_string_append_c( escaped_exec, ' ' );
+            g_free( part );
+        }
+        while( *(++parts) );
+        
+        *app_exec = g_string_free( escaped_exec, FALSE );
     }
-    while( *(++parts) );
-    
-    g_strfreev( exec_argv );
+    else
+    {   /* It's not in $PATH. Bad. */
+        g_warning( "Program `%s' not found in $PATH, launching session `%s' will most likely fail.",
+                *exec_argv, path );
+        *app_exec = temp_app_exec;
+    }
 
-    /* TODO: Handle escapes in the value of the Exec key. Only %i, %c and %k make sense for us. */
-    *app_exec = g_string_free( escaped_exec, FALSE );
+    g_strfreev( exec_argv );
     *app_name = temp_app_name;
     
     /*g_debug( "%s => %s (%s)", path, *app_name, *app_exec );*/
     
     g_key_file_free( key_file );
     return TRUE;
+
+error:
+    g_propagate_error( error, int_error );
+    g_key_file_free( key_file );
+    return FALSE;
 }
