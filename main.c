@@ -357,8 +357,10 @@ gboolean ask_for_session( GSList *session_list, gchar *last_session )
         {   /* Error or EOF -- silently exit. */
             return FALSE;
         }
-        else if( *buf == '\n' )
-        {   /* Use default value. */
+        
+        g_strchug( buf );
+        if( ! *buf  )
+        {   /* User didn't enter anything -- use default value. */
             /* NOTE: No support for no_lastsession_override here because
              *       if we get here, then we are going to start the
              *       default session anyway -- the lastsession file won't
