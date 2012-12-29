@@ -9,6 +9,7 @@ license=('BSD')
 depends=(ncurses glib2)
 provides=('sessionchooser-bzr')
 replaces=('sessionchooser-bzr')
+conflicts=('sessionchooser-bzr')
 
 _gitroot='git://github.com/Tblue/sessionchooser.git'
 _gitname='sessionchooser'
