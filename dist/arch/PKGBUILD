@@ -1,4 +1,4 @@
-# Maintainer: Tilman Blumenbach <tilman@ax86.net>
+# Maintainer: Tilman Blumenbach <tilman AT ax86 DOT net>
 pkgname=sessionchooser-bzr
 pkgver=42
 pkgrel=1

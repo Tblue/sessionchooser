@@ -1,6 +1,6 @@
 /* sessionchooser - a text-based session chooser
  *
- * Copyright (c) 2010-2011, Tilman Blumenbach <tilman@ax86.net>
+ * Copyright (c) 2010-2012, Tilman Blumenbach <tilman AT ax86 DOT net>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,6 +43,12 @@
  * @brief Application version.
  */
 #define SESS_APP_VERSION "1.2.5"
+/**
+ * @brief Short copyright notice.
+ *
+ * Displayed in the application's version notice.
+ */
+#define SESS_APP_COPYRIGHT "(c) 2010-2012 by Tilman Blumenbach"
 /**
  * @brief Default search path for X session files (desktop entries).
  */
