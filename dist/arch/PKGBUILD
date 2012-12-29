@@ -1,33 +1,35 @@
 # Maintainer: Tilman Blumenbach <tilman AT ax86 DOT net>
-pkgname=sessionchooser-bzr
+pkgname=sessionchooser-git
 pkgver=42
 pkgrel=1
 pkgdesc='A text-based session chooser'
 arch=(i686 x86_64)
-url=''
+url='https://github.com/Tblue/sessionchooser'
 license=('BSD')
 depends=(ncurses glib2)
+provides=('sessionchooser-bzr')
+replaces=('sessionchooser-bzr')
 
-_bzrtrunk='http://bazaar.launchpad.net/~tblue/+junk/sessionchooser'
-_bzrmod='sessionchooser'
+_gitroot='git://github.com/Tblue/sessionchooser.git'
+_gitname='sessionchooser'
 
 build() {
   cd "$srcdir"
-  msg "Connecting to Bazaar server...."
+  msg "Connecting to GIT server...."
 
-  if [ -d $_bzrmod ] ; then
-    cd ${_bzrmod} && bzr --no-plugins pull ${_bzrtrunk} -r ${pkgver}
+  if [[ -d "$_gitname" ]]; then
+    cd "$_gitname" && git pull origin
     msg "The local files are updated."
   else
-    bzr --no-plugins branch ${_bzrtrunk} ${_bzrmod} -q -r ${pkgver}
+    git clone "$_gitroot" "$_gitname"
   fi
 
-  msg "Bazaar checkout done or server timeout"
-  msg "Starting make..."
+  msg "GIT checkout done or server timeout"
+  msg "Starting build..."
 
-  rm -rf "$srcdir/$_bzrmod-build"
-  cp -r "$srcdir/$_bzrmod" "$srcdir/$_bzrmod-build"
-  cd "$srcdir/$_bzrmod-build"
+  rm -rf "$srcdir/$_gitname-build"
+  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname-build"
 
   # Build starts here
   make distclean sessionchooser
@@ -37,7 +39,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$_bzrmod-build"
+  cd "$srcdir/$_gitname-build"
 
   make DESTDIR="${pkgdir}/" install
  
