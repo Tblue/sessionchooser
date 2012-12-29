@@ -44,9 +44,9 @@
  */
 #define SESS_APP_VERSION "1.2.5"
 /**
- * @brief Short copyright notice.
+ * @brief Short application copyright notice.
  *
- * Displayed in the application's version notice.
+ * This shows up in the application's version info.
  */
 #define SESS_APP_COPYRIGHT "(c) 2010-2012 by Tilman Blumenbach"
 /**
