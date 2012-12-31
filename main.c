@@ -479,7 +479,8 @@ int main( int argc, char **argv )
 
     if( error )
     {
-        g_error( "Could not parse options: %s", error->message ); /* calls abort() */
+        g_critical( "Could not parse options: %s", error->message );
+        return SESS_MAIN_ERROR_OPTPARSE;
     }
     else if( ! isatty( STDIN_FILENO ) )
     {   /* If we are not running interactively, exit immediately. */
@@ -487,7 +488,8 @@ int main( int argc, char **argv )
     }
     else if( fcntl( output_fd, F_GETFD ) == -1 )
     {
-        g_error( "File descriptor %d is invalid.", output_fd ); /* calls abort() */
+        g_critical( "File descriptor %d is invalid.", output_fd );
+        return SESS_MAIN_ERROR_INV_OUTFD;
     }
 
     /* Get search paths. */
@@ -532,7 +534,8 @@ int main( int argc, char **argv )
     /* Do some more initializations (for features used later on). */
     if( ! no_clear_screen && ! terminfo_init() )
     {
-        g_error( "Could not initialize terminfo DB." ); /* calls abort() */
+        g_critical( "Could not initialize terminfo DB." );
+        return SESS_MAIN_ERROR_TERMINFO;
     }
     signal( SIGINT, sighandler );
 

@@ -76,11 +76,18 @@ typedef enum
  *
  * These are not actually used with glib's error handling functions.
  *
+ * - SESS_MAIN_ERROR_OPTPARSE: Could not parse command line options.
  * - SESS_MAIN_ERROR_NOT_A_TTY: stdin is not associated with a TTY.
+ * - SESS_MAIN_ERROR_INV_OUTFD: The file descriptor to be used to output
+ *                              the session command is invalid.
+ * - SESS_MAIN_ERROR_TERMINFO: Could not initialize the terminfo database.
  */
 typedef enum
 {
+    SESS_MAIN_ERROR_OPTPARSE  = 1,
     SESS_MAIN_ERROR_NOT_A_TTY = 2,
+    SESS_MAIN_ERROR_INV_OUTFD = 3,
+    SESS_MAIN_ERROR_TERMINFO  = 4,
 } SessMainError;
 
 
