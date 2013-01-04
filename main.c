@@ -176,7 +176,7 @@ static gint _session_sort_func( gconstpointer a, gconstpointer b )
 }
 
 /**
- * @brief Callback for g_slist_foreach() to display a session to the user.
+ * @brief Callback for g_ptr_array_foreach() to display a session to the user.
  * @param _session Pointer to a SessSession object.
  * @param unused (unused parameter)
  */
