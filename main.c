@@ -126,7 +126,7 @@ static gboolean _opt_info_cb( const gchar *opt_name,
     }
     else if( strcmp( opt_name, "-v" ) == 0 || strcmp( opt_name, "--version" ) == 0 )
     {   /* Display version information. */
-        g_printf( "%s v%s (Git revision: %s)\n", SESS_APP_NAME, SESS_APP_VERSION,
+        g_printf( _( "%s v%s (Git revision: %s)\n" ), SESS_APP_NAME, SESS_APP_VERSION,
                 SESS_GITREV );
         g_printf( _( "Compiled on: %s\n\n" ), __DATE__ " " __TIME__ );
 
