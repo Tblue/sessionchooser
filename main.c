@@ -86,8 +86,8 @@ static GOptionContext *opt_ctx = NULL;
  * @see GOptionArgFunc()
  */
 static gboolean _opt_info_cb( const gchar *opt_name,
-                              const gchar G_GNUC_UNUSED( *val ),
-                              gpointer G_GNUC_UNUSED( data ),
+                              G_GNUC_UNUSED const gchar *val,
+                              G_GNUC_UNUSED gpointer data,
                               GError **error )
 {
     gchar *default_help;
@@ -180,7 +180,7 @@ static gint _session_sort_func( gconstpointer a, gconstpointer b )
  * @param _session Pointer to a SessSession object.
  * @param unused (unused parameter)
  */
-static void _display_session( gpointer _session, gpointer G_GNUC_UNUSED( unused ) )
+static void _display_session( gpointer _session, G_GNUC_UNUSED gpointer unused )
 {
     SessSession *session = (SessSession *)_session;
     const gchar *format;
