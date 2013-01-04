@@ -1,6 +1,9 @@
+GITREV = $(shell git describe --dirty --tags --always 2>/dev/null)
+
 DESTDIR = /
 CC = gcc
-CFLAGS = -Wextra -Wall -O2 $(shell pkg-config --cflags glib-2.0)
+CFLAGS = -Wextra -Wall -O2 $(shell pkg-config --cflags glib-2.0) \
+		 $(if $(strip $(GITREV)),-DSESS_GITREV='"$(GITREV)"')
 LIBS = -lncurses $(shell pkg-config --libs glib-2.0)
 
 .PHONY: depend distclean clean i18n install

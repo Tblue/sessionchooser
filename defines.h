@@ -89,4 +89,13 @@
  */
 #define SESS_LASTSESSION_FILE ".lastsession"
 
+#ifndef SESS_GITREV
+    /**
+     * @brief Git revision of this build.
+     *
+     * If not given, defaults to <unknown>.
+     */
+#   define SESS_GITREV "<unknown>"
+#endif
+
 #endif /* ifndef _SESS_DEFINES_H */
