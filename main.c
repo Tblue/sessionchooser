@@ -503,7 +503,7 @@ int main( int argc, char **argv )
     
     /* Search the X session search path for desktop entry files: */
     sess_strsplit_foreach( temp, G_SEARCHPATH_SEPARATOR_S, -1,
-        parse_xsession_files_in_dir, & session_list );
+        parse_xsession_files_in_dir, session_list );
 
     /* Text session search path: */
     temp = g_getenv( SESS_TEXTSESSION_SEARCH_PATH_ENV );
@@ -514,7 +514,7 @@ int main( int argc, char **argv )
     
     /* Search the text session search path: */
     sess_strsplit_foreach( temp, G_SEARCHPATH_SEPARATOR_S, -1,
-        parse_textsession_files_in_dir, & session_list );
+        parse_textsession_files_in_dir, session_list );
 
 
     /* Sanity check: Are there any sessions? */

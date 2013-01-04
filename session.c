@@ -130,7 +130,7 @@ void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
     gchar *file_path;
     gchar *sess_name;
     gchar *sess_exec;
-    GPtrArray **session_list = (GPtrArray **)_session_list;
+    GPtrArray *session_list = (GPtrArray *)_session_list;
     GDir *gdir;
     GError *error = NULL;
     SessSession *new_sess;
@@ -173,7 +173,7 @@ void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
         new_sess->exec      = sess_exec;
         new_sess->use_xinit = TRUE;
 
-        g_ptr_array_add( *session_list, new_sess );
+        g_ptr_array_add( session_list, new_sess );
     }
 
     g_dir_close( gdir );
@@ -190,7 +190,7 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
     gchar *file_path;
     gchar *sess_name;
     gchar *dot_pos;
-    GPtrArray **session_list = (GPtrArray **)_session_list;
+    GPtrArray *session_list = (GPtrArray *)_session_list;
     GDir *gdir;
     GError *error = NULL;
     SessSession *new_sess;
@@ -268,7 +268,7 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
             new_sess->exec = file_path_utf8;
         }
 
-        g_ptr_array_add( *session_list, new_sess );
+        g_ptr_array_add( session_list, new_sess );
     }
 
     g_dir_close( gdir );
