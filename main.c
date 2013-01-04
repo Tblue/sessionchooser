@@ -491,7 +491,7 @@ int main( int argc, char **argv )
     }
 
     /* Initialize session list. */
-    session_list = g_ptr_array_new_full( 20, (GDestroyNotify)sess_session_free );
+    session_list = g_ptr_array_new_with_free_func( (GDestroyNotify)sess_session_free );
 
     /* Get search paths. */
     /* Desktop entry search path: */
