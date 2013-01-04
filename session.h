@@ -76,9 +76,8 @@ SessSession *sess_session_new( void );
 /**
  * @brief Free resources used by a SessSession struct.
  * @param sess A pointer to a SessSession struct.
- * @param free_elements TRUE to also free the elements of the struct.
  */
-void sess_session_free( SessSession *sess, gboolean free_elements );
+void sess_session_free( SessSession *sess );
 /**
  * @brief Get the "name_normalized" key of a SessSession struct.
  *
@@ -117,29 +116,23 @@ gchar *sess_session_get_name_locale( SessSession *sess );
 gchar *sess_session_get_exec_locale( SessSession *sess );
 /**
  * @brief Try to find a SessSession by its normalized name.
- * @param sess_list A pointer to a GSList of SessSession structs.
+ * @param sess_list A pointer to a GPtrArray of SessSession structs.
  * @param name_normalized The normalized name of a session to search for.
  * @return The session, if found; NULL otherwise.
  */
-SessSession *sess_session_find_by_name_normalized( GSList *sess_list,
+SessSession *sess_session_find_by_name_normalized( GPtrArray *sess_list,
                                         const gchar *name_normalized );
-/**
- * @brief Free a GSList and all SessSession structs it contains.
- * @param list The GSList to operate on.
- * @param free_sess_elements Whether to also free the two gchar* elements
- *                           each SessSession struct contains.
- */
-void sess_slist_free_all( GSList *list, gboolean free_sess_elements );
+
 /**
  * @brief Parse all session entry files in a directory.
  * @param _dir Pointer to a const gchar containing the directory to search.
- * @param _session_list Pointer to a GSList used to store SessSession structs.
+ * @param _session_list Pointer to a GPtrArray used to store SessSession structs.
  */
 void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list );
 /**
  * @brief Get all executable files in a directory.
  * @param _dir Pointer to a const gchar containing the directory to search.
- * @param _session_list Pointer to a GSList used to store SessSession structs.
+ * @param _session_list Pointer to a GPtrArray used to store SessSession structs.
  */
 void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list );
 

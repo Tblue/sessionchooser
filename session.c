@@ -28,6 +28,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include <stdlib.h>
 #include <string.h>
 
 #include "desktopentry.h"
@@ -40,17 +41,14 @@ SessSession *sess_session_new( void )
     return g_new0( SessSession, 1 );
 }
 
-void sess_session_free( SessSession *sess, gboolean free_elements )
+void sess_session_free( SessSession *sess )
 {
-    if( free_elements )
-    {
-        g_free( sess->name );
-        g_free( sess->name_normalized );
-        g_free( sess->name_coll_key_case );
-        g_free( sess->name_locale );
-        g_free( sess->exec );
-        g_free( sess->exec_locale );
-    }
+    g_free( sess->name );
+    g_free( sess->name_normalized );
+    g_free( sess->name_coll_key_case );
+    g_free( sess->name_locale );
+    g_free( sess->exec );
+    g_free( sess->exec_locale );
 
     g_free( sess );
 }
@@ -109,32 +107,19 @@ gchar *sess_session_get_exec_locale( SessSession *sess )
     return sess->exec_locale;
 }
 
-static gint _sess_session_find_by_name_normalized_cb(
-    gconstpointer curr_sess,
-    gconstpointer search_str )
+static int _sess_session_find_by_name_normalized_cb(
+    const void *search_str, const void *curr_sess )
 {
-    return strcmp( sess_session_get_name_normalized( (SessSession *)curr_sess ),
-        (const char *)search_str );
+    return strcmp( (const char *)search_str,
+            sess_session_get_name_normalized( *(SessSession **)curr_sess ) );
 }
 
-SessSession *sess_session_find_by_name_normalized( GSList *sess_list,
+SessSession *sess_session_find_by_name_normalized( GPtrArray *sess_list,
                                         const gchar *name_normalized )
 {
-    GSList *res = g_slist_find_custom( sess_list, name_normalized,
-        _sess_session_find_by_name_normalized_cb );
-
-    return res ? (SessSession *)res->data : NULL;
-}
-
-static void _sess_slist_free_all_cb( gpointer data, gpointer userdata )
-{
-    sess_session_free( (SessSession *)data, (gboolean)userdata );
-}
-
-void sess_slist_free_all( GSList *list, gboolean free_sess_elements )
-{
-    g_slist_foreach( list, _sess_slist_free_all_cb, (gpointer)free_sess_elements );
-    g_slist_free( list );
+    SessSession **s = bsearch( name_normalized, sess_list->pdata, sess_list->len,
+            sizeof( gpointer ), _sess_session_find_by_name_normalized_cb );
+    return s ? *s : NULL;
 }
 
 void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
@@ -145,7 +130,7 @@ void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
     gchar *file_path;
     gchar *sess_name;
     gchar *sess_exec;
-    GSList **session_list = (GSList **)_session_list;
+    GPtrArray **session_list = (GPtrArray **)_session_list;
     GDir *gdir;
     GError *error = NULL;
     SessSession *new_sess;
@@ -188,7 +173,7 @@ void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
         new_sess->exec      = sess_exec;
         new_sess->use_xinit = TRUE;
 
-        *session_list = g_slist_prepend( *session_list, new_sess );
+        g_ptr_array_add( *session_list, new_sess );
     }
 
     g_dir_close( gdir );
@@ -205,7 +190,7 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
     gchar *file_path;
     gchar *sess_name;
     gchar *dot_pos;
-    GSList **session_list = (GSList **)_session_list;
+    GPtrArray **session_list = (GPtrArray **)_session_list;
     GDir *gdir;
     GError *error = NULL;
     SessSession *new_sess;
@@ -283,7 +268,7 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
             new_sess->exec = file_path_utf8;
         }
 
-        *session_list = g_slist_prepend( *session_list, new_sess );
+        g_ptr_array_add( *session_list, new_sess );
     }
 
     g_dir_close( gdir );
