@@ -1,10 +1,11 @@
-GITREV = $(shell git describe --dirty --tags --always 2>/dev/null)
+gitrev = $(shell git describe --dirty --tags --always 2>/dev/null)
 
 DESTDIR = /
 CC = gcc
-CFLAGS = -Wextra -Wall -O2 $(shell pkg-config --cflags glib-2.0) \
-		 $(if $(strip $(GITREV)),-DSESS_GITREV='"$(GITREV)"')
-LIBS = -lncurses $(shell pkg-config --libs glib-2.0)
+override CFLAGS := -Wextra -Wall -O3 \
+	$(shell pkg-config --cflags glib-2.0 ncurses) \
+	$(if $(strip $(gitrev)),-DSESS_GITREV='"$(gitrev)"') $(CFLAGS)
+override LIBS := $(shell pkg-config --libs glib-2.0 ncurses) $(LIBS)
 
 .PHONY: distclean clean i18n install
 
