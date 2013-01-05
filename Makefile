@@ -6,16 +6,17 @@ CFLAGS = -Wextra -Wall -O2 $(shell pkg-config --cflags glib-2.0) \
 		 $(if $(strip $(GITREV)),-DSESS_GITREV='"$(GITREV)"')
 LIBS = -lncurses $(shell pkg-config --libs glib-2.0)
 
-.PHONY: depend distclean clean i18n install
+.PHONY: distclean clean i18n install
 
 sessionchooser: desktopentry.o error.o i18n.o main.o session.o util.o
 	$(CC) $(CFLAGS) $(LIBS) -o sessionchooser $^
 
-%.o: %.c
+# main.o does not depend on a header file
+main.o:: main.c
 	$(CC) $(CFLAGS) $(LIBS) -c $<
 
-depend:
-	makedepend -- $(CFLAGS) -- *.c
+%.o: %.c %.h
+	$(CC) $(CFLAGS) $(LIBS) -c $<
 
 distclean:
 	-rm *.o sessionchooser
