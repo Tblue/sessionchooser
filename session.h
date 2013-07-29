@@ -50,6 +50,8 @@
  *                       collation key. Used for locale-dependent ordering.
  * - name_locale: name in a locale-dependent charset (might actually be
  *                the same as "name" if the charset conversion failed).
+ * - path: Path of the file that defines this session (desktop file or
+ *         shell script).
  * - exec: The "Exec" key of the session (UTF-8 encoded).
  * - exec_locale: "exec" in a locale-dependent charset (might actually be
  *                the same as "exec" if the charset conversion failed).
@@ -60,6 +62,7 @@ typedef struct
     gchar *name;
     gchar *name_coll_key_case;
     gchar *name_locale;
+    gchar *path;
     gchar *exec;
     gchar *exec_locale;
     gboolean use_xinit;

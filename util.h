@@ -89,5 +89,12 @@ gchar *get_last_session( void );
  * @return TRUE on success, FALSE otherwise.
  */
 gboolean set_last_session( const gchar *sess_name, GError **error );
+/**
+ * @brief  Convert a filename to UTF-8.
+ * @param  path The path to convert.
+ * @return The converted path or a copy of the original path if
+ *         the conversion failed. Never NULL.
+ */
+gchar *filename_to_utf8_nofail( const gchar *path );
 
 #endif /* ifndef _SESS_UTIL_H */

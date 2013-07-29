@@ -46,6 +46,7 @@ void sess_session_free( SessSession *sess )
     g_free( sess->name );
     g_free( sess->name_coll_key_case );
     g_free( sess->name_locale );
+    g_free( sess->path );
     g_free( sess->exec );
     g_free( sess->exec_locale );
 
@@ -128,15 +129,16 @@ void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
             g_free( file_path );
             continue;
         }
-        g_free( file_path );
 
         /* Now we got both the session name and its Exec key. Append them
          * the session list. */
         new_sess = sess_session_new();
         new_sess->name      = sess_name;
+        new_sess->path      = filename_to_utf8_nofail( file_path );
         new_sess->exec      = sess_exec;
         new_sess->use_xinit = TRUE;
 
+        g_free( file_path );
         g_ptr_array_add( session_list, new_sess );
     }
 
