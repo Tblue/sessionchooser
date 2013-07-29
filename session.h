@@ -43,6 +43,8 @@
  * @brief Represents a single session.
  *
  * - name: The name of the session (UTF-8 encoded).
+ * - name_normalized: Normalized "name" suitable for comparison with another
+ *                    normalized UTF-8 string.
  * - name_coll_key_case: Result of g_utf8_collate_key() called with the
  *                       string returned by g_utf8_casefold() for "name"
  *                       -- i. e. a case-insensitive representation of
@@ -60,6 +62,7 @@
 typedef struct
 {
     gchar *name;
+    gchar *name_normalized;
     gchar *name_coll_key_case;
     gchar *name_locale;
     gchar *path;
@@ -78,6 +81,15 @@ SessSession *sess_session_new( void );
  * @param sess A pointer to a SessSession struct.
  */
 void sess_session_free( SessSession *sess );
+/**
+ * @brief Get the "name_normalized" key of a SessSession struct.
+ *
+ * The key is created when missing.
+ *
+ * @param sess Pointer to a SessSession struct.
+ * @return The "name_normalized" key.
+ */
+gchar *sess_session_get_name_normalized( SessSession *sess );
 /**
  * @brief Get the "name_coll_key_case" key of a SessSession struct.
  *
@@ -105,6 +117,14 @@ gchar *sess_session_get_name_locale( SessSession *sess );
  * @return The "exec_locale" key.
  */
 gchar *sess_session_get_exec_locale( SessSession *sess );
+/**
+ * @brief Try to find a SessSession by its normalized name.
+ * @param sess_list A pointer to a GPtrArray of SessSession structs.
+ * @param name_normalized The normalized name of a session to search for.
+ * @return The session, if found; NULL otherwise.
+ */
+SessSession *sess_session_find_by_name_normalized( GPtrArray *sess_list,
+                                        const gchar *name_normalized );
 
 /**
  * @brief Parse all session entry files in a directory.
