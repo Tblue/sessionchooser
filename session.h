@@ -163,6 +163,14 @@ void sess_list_sort( SessList *s );
 
 
 /**
+ * @brief Try to find a SessSession by its normalized path.
+ * @param sess_list A pointer to a session list.
+ * @param path_normalized The normalized path of a session to search for.
+ * @return The session, if found; NULL otherwise.
+ */
+SessSession *sess_session_find_by_path_normalized( SessList *sess_list,
+                                        const gchar *path_normalized );
+/**
  * @brief Parse all session entry files in a directory.
  * @param _dir Pointer to a const gchar containing the directory to search.
  * @param _session_list Pointer to a SessList.

@@ -185,6 +185,22 @@ void sess_list_sort( SessList *s )
 }
 
 
+static int _sess_session_find_by_path_normalized_cb(
+    const void *search_str, const void *curr_sess )
+{
+    return strcmp( (const char *)search_str,
+            sess_session_get_path_normalized( *(SessSession **)curr_sess ) );
+}
+
+SessSession *sess_session_find_by_path_normalized( SessList *sess_list,
+                                        const gchar *path_normalized )
+{
+    SessSession **s = bsearch( path_normalized, sess_list->path_idx->pdata,
+            sess_list->path_idx->len, sizeof( gpointer ),
+            _sess_session_find_by_path_normalized_cb );
+    return s ? *s : NULL;
+}
+
 void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
 {
     /* If _dir is an empty string, use the current directory (as per POSIX). */
