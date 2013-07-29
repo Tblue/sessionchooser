@@ -265,7 +265,6 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
     const gchar *dir = ! *( (const gchar *)_dir ) ? "." : (const gchar *)_dir;
     const gchar *file;
     gchar *file_utf8;
-    gchar *file_path_utf8;
     gchar *file_path;
     gchar *sess_name;
     gchar *dot_pos;
