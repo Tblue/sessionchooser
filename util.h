@@ -96,5 +96,13 @@ gboolean set_last_session( const gchar *sess_name, GError **error );
  *         the conversion failed. Never NULL.
  */
 gchar *filename_to_utf8_nofail( const gchar *path );
+/**
+ * Copy a GPtrArray.
+ *
+ * @param src The source array.
+ * @param free_func An optional free function to set for the new copy.
+ * @return A copy of the source array.
+ */
+GPtrArray *ptr_array_copy( const GPtrArray *src, GDestroyNotify free_func )
 
 #endif /* ifndef _SESS_UTIL_H */
