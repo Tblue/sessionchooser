@@ -269,15 +269,14 @@ gboolean process_session( SessSession *sess )
 #define CHOICE_BUF_LEN 32
 /**
  * @brief Ask the user which session he would like to start.
- * @param session_list GPtrArray of SessSession objects the user can choose
- *                     from.
+ * @param session_list A pointer to a SessList (session list).
  * @param last_session Last used session's normalized name or NULL.
  *                     "" (empty string) means that the last session was
  *                     the shell.
  * @return TRUE if the user chose either a X session or a text session.
  *         FALSE if he/she wants to continue with the current shell.
  */
-gboolean ask_for_session( GPtrArray *session_list, gchar *last_session )
+gboolean ask_for_session( SessList *session_list, gchar *last_session )
 {
     GError *error = NULL;
     unsigned int choice;
@@ -324,7 +323,7 @@ gboolean ask_for_session( GPtrArray *session_list, gchar *last_session )
         _sess_num = 1;
         no_lastsession_override = FALSE;
 
-        g_ptr_array_foreach( session_list, _display_session, NULL );
+        g_ptr_array_foreach( session_list->list, _display_session, NULL );
 
         if( default_session )
         {
@@ -386,14 +385,14 @@ gboolean ask_for_session( GPtrArray *session_list, gchar *last_session )
             {   /* We want to continue with the current shell. */
                 break;
             }
-            else if( choice > session_list->len )
+            else if( choice > session_list->list->len )
             {   /* Invalid session specified. */
                 puts( _( "No such session. Please try again..." ) );
                 sleep( 1 );
                 continue;
             }
 
-            chosen_session = g_ptr_array_index( session_list, choice - 1 );
+            chosen_session = g_ptr_array_index( session_list->list, choice - 1 );
         }
 
         /* We got a session! Let's try to process it. */
@@ -447,7 +446,7 @@ int main( int argc, char **argv )
      * to an empty string.
      */
     gchar *last_session = NULL;
-    GPtrArray *session_list;
+    SessList *session_list;
     int ret = 0;
 
     /* Initialize locale handling: */
@@ -480,7 +479,7 @@ int main( int argc, char **argv )
     }
 
     /* Initialize session list. */
-    session_list = g_ptr_array_new_with_free_func( (GDestroyNotify)sess_session_free );
+    session_list = sess_list_new();
 
     /* Get search paths. */
     /* Desktop entry search path: */
@@ -507,16 +506,16 @@ int main( int argc, char **argv )
 
 
     /* Sanity check: Are there any sessions? */
-    if( ! session_list->len )
+    if( ! session_list->list->len )
     {   /* No elements?! */
-        g_ptr_array_free( session_list, TRUE );
+        sess_list_free( session_list );
         /* A return code of 1 means "use current shell". */
         return 1;
     }
 
     /* session_list now should contain a list of sessions found in all the
      * directories. Sort the list: */
-    g_ptr_array_sort( session_list, _session_sort_func );
+    sess_list_sort( session_list );
 
     /* Do some more initializations (for features used later on). */
     if( ! no_clear_screen && ! terminfo_init() )
@@ -547,7 +546,7 @@ int main( int argc, char **argv )
     /* Clean up: */
     close( output_fd );
     g_free( last_session );
-    g_ptr_array_free( session_list, TRUE );
+    sess_list_free( session_list );
 
     return ret;
 }
