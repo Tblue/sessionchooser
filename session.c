@@ -49,6 +49,7 @@ void sess_session_free( SessSession *sess )
     g_free( sess->name_locale );
     g_free( sess->path );
     g_free( sess->path_normalized );
+    g_free( sess->path_coll_key );
     g_free( sess->exec );
     g_free( sess->exec_locale );
 
@@ -99,19 +100,14 @@ gchar *sess_session_get_path_normalized( SessSession *sess )
     return sess->path_normalized;
 }
 
-static int _sess_session_find_by_path_normalized_cb(
-    const void *search_str, const void *curr_sess )
+gchar *sess_session_get_path_coll_key( SessSession *sess )
 {
-    return strcmp( (const char *)search_str,
-            sess_session_get_path_normalized( *(SessSession **)curr_sess ) );
-}
+    if( ! sess->path_coll_key )
+    {
+        sess->path_coll_key = g_utf8_collate_key( sess->path, -1 );
+    }
 
-SessSession *sess_session_find_by_path_normalized( GPtrArray *sess_list,
-                                        const gchar *path_normalized )
-{
-    SessSession **s = bsearch( path_normalized, sess_list->pdata, sess_list->len,
-            sizeof( gpointer ), _sess_session_find_by_path_normalized_cb );
-    return s ? *s : NULL;
+    return sess->path_coll_key;
 }
 
 gchar *sess_session_get_exec_locale( SessSession *sess )

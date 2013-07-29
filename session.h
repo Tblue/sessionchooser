@@ -54,6 +54,8 @@
  *         shell script).
  * - path_normalized: Normalized path suitable for comparison with another
  *                    normalized UTF-8 string.
+ * - path_coll_key: Case-sensitive collation key for "path". Used for
+ *                  locale-dependent ordering.
  * - exec: The "Exec" key of the session (UTF-8 encoded).
  * - exec_locale: "exec" in a locale-dependent charset (might actually be
  *                the same as "exec" if the charset conversion failed).
@@ -66,6 +68,7 @@ typedef struct
     gchar *name_locale;
     gchar *path;
     gchar *path_normalized;
+    gchar *path_coll_key;
     gchar *exec;
     gchar *exec_locale;
     gboolean use_xinit;
@@ -109,13 +112,14 @@ gchar *sess_session_get_name_locale( SessSession *sess );
  */
 gchar *sess_session_get_path_normalized( SessSession *sess );
 /**
- * @brief Try to find a SessSession by its normalized path.
- * @param sess_list A pointer to a GPtrArray of SessSession structs.
- * @param path_normalized The normalized path of a session to search for.
- * @return The session, if found; NULL otherwise.
+ * @brief Get the "path_coll_key" key of a SessSession struct.
+ *
+ * The key is created when missing.
+ *
+ * @param sess Pointer to a SessSession struct.
+ * @return The "path_coll_key" key.
  */
-SessSession *sess_session_find_by_path_normalized( GPtrArray *sess_list,
-                                        const gchar *path_normalized );
+gchar *sess_session_get_path_coll_key( SessSession *sess );
 /**
  * @brief Get the "exec_locale" key of a SessSession struct.
  *
