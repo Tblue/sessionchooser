@@ -152,7 +152,6 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
     const gchar *file;
     gchar *file_utf8;
     gchar *file_path_utf8;
-    gboolean free_file_utf8;
     gchar *file_path;
     gchar *sess_name;
     gchar *dot_pos;
@@ -181,59 +180,28 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
             continue;
         }
 
-        free_file_utf8 = TRUE;
-        file_utf8 = g_filename_to_utf8( file, -1, NULL, NULL, NULL );
-        if( ! file_utf8 )
-        {   /* Conversion failed, use original file name. */
-            /* This is not const-correct (the compiler complains because
-             * file is declarded const gchar*, but file_utf8 is not),
-             * but note that file_utf8 will not be modified later on and
-             * thus file is not being modified at any time, either. */
-            file_utf8 = (gchar *)file;
-            /* We *cannot* call g_free() on file_utf8 later! */
-            free_file_utf8 = FALSE;
-        }
+        file_utf8 = filename_to_utf8_nofail( file );
 
         if( ( dot_pos = g_utf8_strrchr( file_utf8, -1, '.' ) ) )
         {   /* Strip file extension. */
             sess_name = g_strndup( file_utf8, dot_pos - file_utf8 );
+            g_free( file_utf8 );
         }
         else
         {   /* Use original file name. */
-            if( free_file_utf8 )
-            {   /* We can just use the converted string and NOT free it. */
-                sess_name = file_utf8;
-                free_file_utf8 = FALSE;
-            }
-            else
-            {   /* We have to copy the string. */
-                sess_name = g_strdup( file_utf8 );
-            }
+            sess_name = file_utf8;
         }
 
-        if( free_file_utf8 )
-        {
-            g_free( file_utf8 );
-        }
-        
         //~ g_debug( " Adding text session: %s", sess_name );
 
         /* Append new entry to session list: */
         new_sess = sess_session_new();
         new_sess->name = sess_name;
 
-        file_path_utf8 = g_filename_to_utf8( file_path, -1, NULL, NULL, NULL );
-        if( ! file_path_utf8 )
-        {   /* Conversion failed, use original file path: */
-            new_sess->exec = file_path;
-        }
-        else
-        {
-            //~ g_debug( "Text session: Using UTF-8 file name." );
-            g_free( file_path );
-            new_sess->exec = file_path_utf8;
-        }
+        new_sess->exec = filename_to_utf8_nofail( file_path );
+        new_sess->path = g_strdup( new_sess->exec );
 
+        g_free( file_path );
         g_ptr_array_add( session_list, new_sess );
     }
 
