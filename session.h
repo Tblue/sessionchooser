@@ -152,7 +152,7 @@ SessList *sess_list_new( void );
  * @brief Free a session list.
  * @param s The session list to free.
  */
-void sess_list_free( SessList *s )
+void sess_list_free( SessList *s );
 /**
  * @brief Sort the session list.
  *

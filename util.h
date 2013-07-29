@@ -103,6 +103,6 @@ gchar *filename_to_utf8_nofail( const gchar *path );
  * @param free_func An optional free function to set for the new copy.
  * @return A copy of the source array.
  */
-GPtrArray *ptr_array_copy( const GPtrArray *src, GDestroyNotify free_func )
+GPtrArray *ptr_array_copy( const GPtrArray *src, GDestroyNotify free_func );
 
 #endif /* ifndef _SESS_UTIL_H */
