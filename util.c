@@ -182,7 +182,7 @@ gchar *filename_to_utf8_nofail( const gchar *path )
 {
     gchar *file_path_utf8;
 
-    file_path_utf8 = g_filename_to_utf8( file_path, -1, NULL, NULL, NULL );
+    file_path_utf8 = g_filename_to_utf8( path, -1, NULL, NULL, NULL );
     if( ! file_path_utf8 )
     {   /* Conversion failed, use original file path: */
         file_path_utf8 = g_strdup( path );

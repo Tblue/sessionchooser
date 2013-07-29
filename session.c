@@ -34,6 +34,7 @@
 #include "desktopentry.h"
 #include "i18n.h"
 #include "session.h"
+#include "util.h"
 
 SessSession *sess_session_new( void )
 {
