@@ -191,16 +191,15 @@ gchar *filename_to_utf8_nofail( const gchar *path )
     return file_path_utf8;
 }
 
-static _ptr_array_copy_cb( gpointer _elm, gpointer _list )
+static void _ptr_array_copy_cb( gpointer _elm, gpointer _list )
 {
     g_ptr_array_add( (GPtrArray *)_list, _elm );
 }
 
-GPtrArray *ptr_array_copy( const GPtrArray *src, GDestroyNotify free_func )
+GPtrArray *ptr_array_copy( GPtrArray *src, GDestroyNotify free_func )
 {
     GPtrArray *dest = g_ptr_array_new_full( src->len, free_func );
     g_ptr_array_foreach( src, _ptr_array_copy_cb, dest );
 
     return dest;
-
 }
