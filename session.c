@@ -44,34 +44,14 @@ SessSession *sess_session_new( void )
 void sess_session_free( SessSession *sess )
 {
     g_free( sess->name );
-    g_free( sess->name_normalized );
     g_free( sess->name_coll_key_case );
     g_free( sess->name_locale );
     g_free( sess->path );
+    g_free( sess->path_normalized );
     g_free( sess->exec );
     g_free( sess->exec_locale );
 
     g_free( sess );
-}
-
-gchar *sess_session_get_name_normalized( SessSession *sess )
-{
-    gchar *normalized;
-
-    if( ! sess->name_normalized )
-    {   /* Normalize name. */
-        normalized = g_utf8_normalize( sess->name, -1, G_NORMALIZE_NFD );
-        if( ! normalized )
-        {   /* Invalid UTF-8 string. Use original string (not perfect!): */
-            sess->name_normalized = g_strdup( sess->name );
-        }
-        else
-        {
-            sess->name_normalized = normalized;
-        }
-    }
-
-    return sess->name_normalized;
 }
 
 gchar *sess_session_get_name_coll_key_case( SessSession *sess )
@@ -98,6 +78,41 @@ gchar *sess_session_get_name_locale( SessSession *sess )
     return sess->name_locale;
 }
 
+gchar *sess_session_get_path_normalized( SessSession *sess )
+{
+    gchar *normalized;
+
+    if( ! sess->path_normalized )
+    {   /* Normalize path. */
+        normalized = g_utf8_normalize( sess->path, -1, G_NORMALIZE_NFD );
+        if( ! normalized )
+        {   /* Invalid UTF-8 string. Use original string (not perfect!): */
+            sess->path_normalized = g_strdup( sess->path );
+        }
+        else
+        {
+            sess->path_normalized = normalized;
+        }
+    }
+
+    return sess->path_normalized;
+}
+
+static int _sess_session_find_by_path_normalized_cb(
+    const void *search_str, const void *curr_sess )
+{
+    return strcmp( (const char *)search_str,
+            sess_session_get_path_normalized( *(SessSession **)curr_sess ) );
+}
+
+SessSession *sess_session_find_by_path_normalized( GPtrArray *sess_list,
+                                        const gchar *path_normalized )
+{
+    SessSession **s = bsearch( path_normalized, sess_list->pdata, sess_list->len,
+            sizeof( gpointer ), _sess_session_find_by_path_normalized_cb );
+    return s ? *s : NULL;
+}
+
 gchar *sess_session_get_exec_locale( SessSession *sess )
 {
     if( ! sess->exec_locale )
@@ -106,21 +121,6 @@ gchar *sess_session_get_exec_locale( SessSession *sess )
     }
 
     return sess->exec_locale;
-}
-
-static int _sess_session_find_by_name_normalized_cb(
-    const void *search_str, const void *curr_sess )
-{
-    return strcmp( (const char *)search_str,
-            sess_session_get_name_normalized( *(SessSession **)curr_sess ) );
-}
-
-SessSession *sess_session_find_by_name_normalized( GPtrArray *sess_list,
-                                        const gchar *name_normalized )
-{
-    SessSession **s = bsearch( name_normalized, sess_list->pdata, sess_list->len,
-            sizeof( gpointer ), _sess_session_find_by_name_normalized_cb );
-    return s ? *s : NULL;
 }
 
 void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
