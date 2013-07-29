@@ -120,6 +120,71 @@ gchar *sess_session_get_exec_locale( SessSession *sess )
     return sess->exec_locale;
 }
 
+
+SessList *sess_list_new( void )
+{
+    SessList *s = g_new0( SessList, 1 );
+    s->list = g_ptr_array_new_with_free_func( (GDestroyNotify)sess_session_free );
+
+    return s;
+}
+
+void sess_list_free( SessList *s )
+{
+    if( ! s )
+    {
+        return;
+    }
+
+    g_ptr_array_free( s->list, TRUE );
+    if( s->path_idx )
+    {
+        g_ptr_array_free( s->path_idx, TRUE );
+    }
+}
+
+/**
+ * @brief Sorting callback for g_ptr_array_sort(). Sorts by name.
+ * @param a First (pointer to a) SessSession object/pointer.
+ * @param b Second (pointer to a) SessSession object/pointer.
+ * @return See g_ptr_array_sort().
+ */
+static gint _session_name_sort_func( gconstpointer a, gconstpointer b )
+{
+    return strcmp( sess_session_get_name_coll_key_case( *(SessSession **)a ),
+        sess_session_get_name_coll_key_case( *(SessSession **)b ) );
+}
+
+/**
+ * @brief Sorting callback for g_ptr_array_sort(). Sorts by path.
+ * @param a First (pointer to a) SessSession object/pointer.
+ * @param b Second (pointer to a) SessSession object/pointer.
+ * @return See g_ptr_array_sort().
+ */
+static gint _session_path_sort_func( gconstpointer a, gconstpointer b )
+{
+    return strcmp( sess_session_get_path_coll_key( *(SessSession **)a ),
+        sess_session_get_path_coll_key( *(SessSession **)b ) );
+}
+
+void sess_list_sort( SessList *s )
+{
+    g_ptr_array_sort( s->list, _session_name_sort_func );
+
+    if( s->path_idx )
+    {
+        g_ptr_array_free( s->path_idx, TRUE );
+    }
+
+    /* Since this is an index, we don't need to free the elements pointed to
+     * by its elements (will be free'd when the original session list is
+     * destroyed).
+     */
+    s->path_idx = ptr_array_copy( s->list, NULL );
+    g_ptr_array_sort( s->path_idx, _session_path_sort_func );
+}
+
+
 void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
 {
     /* If _dir is an empty string, use the current directory (as per POSIX). */
@@ -128,7 +193,7 @@ void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
     gchar *file_path;
     gchar *sess_name;
     gchar *sess_exec;
-    GPtrArray *session_list = (GPtrArray *)_session_list;
+    GPtrArray *session_list = ((SessList *)_session_list)->list;
     GDir *gdir;
     GError *error = NULL;
     SessSession *new_sess;
@@ -188,7 +253,7 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
     gchar *file_path;
     gchar *sess_name;
     gchar *dot_pos;
-    GPtrArray *session_list = (GPtrArray *)_session_list;
+    GPtrArray *session_list = ((SessList *)_session_list)->list;
     GDir *gdir;
     GError *error = NULL;
     SessSession *new_sess;

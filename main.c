@@ -165,18 +165,6 @@ static GOptionEntry options[]   = {
 };
 
 /**
- * @brief Sorting callback for g_ptr_array_sort().
- * @param a First (pointer to a) SessSession object/pointer.
- * @param b Second (pointer to a) SessSession object/pointer.
- * @return See g_ptr_array_sort().
- */
-static gint _session_sort_func( gconstpointer a, gconstpointer b )
-{
-    return strcmp( sess_session_get_name_coll_key_case( *(SessSession **)a ),
-        sess_session_get_name_coll_key_case( *(SessSession **)b ) );
-}
-
-/**
  * @brief Callback for g_ptr_array_foreach() to display a session to the user.
  * @param _session Pointer to a SessSession object.
  * @param unused (unused parameter)

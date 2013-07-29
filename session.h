@@ -130,16 +130,48 @@ gchar *sess_session_get_path_coll_key( SessSession *sess );
  */
 gchar *sess_session_get_exec_locale( SessSession *sess );
 
+
+/**
+ * @brief Represents a list of sessions.
+ *
+ * - list: The list of sessions, ordered by name.
+ * - path_idx: List of sessions, ordered by path.
+ */
+typedef struct
+{
+    GPtrArray *list;
+    GPtrArray *path_idx;
+} SessList;
+
+/**
+ * @brief Create a new (empty) session list.
+ * @return New, empty session list.
+ */
+SessList *sess_list_new( void );
+/**
+ * @brief Free a session list.
+ * @param s The session list to free.
+ */
+void sess_list_free( SessList *s )
+/**
+ * @brief Sort the session list.
+ *
+ * This sorts the session list by name in descending order
+ * and also creates an index to lookup sessions by their path.
+ */
+void sess_list_sort( SessList *s );
+
+
 /**
  * @brief Parse all session entry files in a directory.
  * @param _dir Pointer to a const gchar containing the directory to search.
- * @param _session_list Pointer to a GPtrArray used to store SessSession structs.
+ * @param _session_list Pointer to a SessList.
  */
 void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list );
 /**
  * @brief Get all executable files in a directory.
  * @param _dir Pointer to a const gchar containing the directory to search.
- * @param _session_list Pointer to a GPtrArray used to store SessSession structs.
+ * @param _session_list Pointer to a SessList.
  */
 void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list );
 
