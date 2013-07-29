@@ -312,7 +312,7 @@ gboolean ask_for_session( GPtrArray *session_list, gchar *last_session )
         }
         else
         {
-            default_session = sess_session_find_by_name_normalized( session_list,
+            default_session = sess_session_find_by_path_normalized( session_list,
                 last_session );
         }
     }
@@ -424,7 +424,7 @@ gboolean ask_for_session( GPtrArray *session_list, gchar *last_session )
     {
         /* If chosen_session is NULL, then we want to use the current shell. */
         session_name = chosen_session
-                ? sess_session_get_name_normalized( chosen_session )
+                ? sess_session_get_path_normalized( chosen_session )
                 : "";
 
         /* Only update if we need to. */
