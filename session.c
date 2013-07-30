@@ -163,8 +163,8 @@ static gint _session_name_sort_func( gconstpointer a, gconstpointer b )
  */
 static gint _session_path_sort_func( gconstpointer a, gconstpointer b )
 {
-    return strcmp( sess_session_get_path_coll_key( *(SessSession **)a ),
-        sess_session_get_path_coll_key( *(SessSession **)b ) );
+    return strcmp( sess_session_get_path_normalized( *(SessSession **)a ),
+        sess_session_get_path_normalized( *(SessSession **)b ) );
 }
 
 void sess_list_sort( SessList *s )
