@@ -1,3 +1,11 @@
+Version 2.0         2013-07-30 Tilman Blumenbach
+    - Remember the last used session by its path. In
+      contrast to the previously used session name, the
+      path is unique and does not depend on the
+      current locale.
+    - Change versioning scheme to only a major and
+      minor version. It's easier that way.
+
 Version 1.2.5       2012-04-04 Tilman Blumenbach
     - Handle value of Exec key not being found in $PATH correctly
       (emit warning and keep going).
