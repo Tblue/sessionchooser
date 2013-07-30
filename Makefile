@@ -12,11 +12,11 @@ override LIBS := $(shell pkg-config --libs glib-2.0 ncurses) $(LIBS)
 sessionchooser: desktopentry.o error.o i18n.o main.o session.o util.o
 	$(CC) $(CFLAGS) $(LIBS) -o sessionchooser $^
 
-# main.o does not depend on a header file
-main.o:: main.c
+# main.o does not depend on its own header file.
+main.o:: main.c defines.h
 	$(CC) $(CFLAGS) $(LIBS) -c $<
 
-%.o: %.c %.h
+%.o: %.c %.h defines.h
 	$(CC) $(CFLAGS) $(LIBS) -c $<
 
 distclean:
