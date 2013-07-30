@@ -1,6 +1,6 @@
 # Maintainer: Tilman Blumenbach <tilman AT ax86 DOT net>
 pkgname=sessionchooser-git
-pkgver=42
+_gitdir=sessionchooser
 pkgrel=1
 pkgdesc='A text-based session chooser'
 arch=(i686 x86_64)
@@ -10,29 +10,16 @@ depends=(ncurses glib2)
 provides=('sessionchooser-bzr')
 replaces=('sessionchooser-bzr')
 conflicts=('sessionchooser-bzr')
+source=("${_gitdir}::git://github.com/Tblue/sessionchooser.git")
+md5sums=(SKIP)
 
-_gitroot='git://github.com/Tblue/sessionchooser.git'
-_gitname='sessionchooser'
+pkgver() {
+  cd "${srcdir}/${_gitdir}"
+  git describe --always | tr :- _
+}
 
 build() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting build..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  cd "$srcdir/$_gitname-build"
-
-  # Build starts here
+  cd "${srcdir}/${_gitdir}"
   make distclean sessionchooser
 
   cd i18n
@@ -40,8 +27,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$_gitname-build"
-
+  cd "${srcdir}/${_gitdir}"
   make DESTDIR="${pkgdir}/" install
  
   mkdir -p "${pkgdir}/etc/sessionchooser/textsessions"
@@ -51,6 +37,9 @@ package() {
 
   cd i18n
   for i in *.mo; do
-    install -Dm644 "${i}" "${pkgdir}/usr/share/locale/$(basename "${i}" .mo)/LC_MESSAGES/sessionchooser.mo"
+    install -Dm644 "${i}" "${pkgdir}/usr/share/locale/$(basename "${i}" \
+      .mo)/LC_MESSAGES/sessionchooser.mo"
   done
 }
+
+# vim:ts=2 sw=2 et
