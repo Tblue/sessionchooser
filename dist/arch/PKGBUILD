@@ -1,6 +1,7 @@
 # Maintainer: Tilman Blumenbach <tilman AT ax86 DOT net>
 pkgname=sessionchooser-git
 _gitdir=sessionchooser
+pkgver=42
 pkgrel=1
 pkgdesc='A text-based session chooser'
 arch=(i686 x86_64)
