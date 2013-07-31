@@ -5,18 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: sessionchooser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-19 20:30+0100\n"
-"PO-Revision-Date: 2011-01-21 21:42+0100\n"
+"POT-Creation-Date: 2013-07-31 15:30+0200\n"
+"PO-Revision-Date: 2013-07-31 15:34+0100\n"
 "Last-Translator: Tilman Blumenbach <tilman+translations@ax86.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"Language: de\n"
 
-#: ../main.c:107
+#: ../main.c:103
 #, c-format
 msgid ""
 "Additionally, the following environment variables are recognized:\n"
@@ -25,7 +26,8 @@ msgid ""
 "\t\t\t\tor 'XSession'.\n"
 "\t\t\t\tDefault: %s\n"
 "  %s\tSearch path for text session files (follows standard PATH\n"
-"\t\t\t\tsyntax). Text session files are simple shell scripts. Non-executable\n"
+"\t\t\t\tsyntax). Text session files are simple shell scripts. Non-"
+"executable\n"
 "\t\t\t\tfiles are skipped.\n"
 "\t\t\t\tDefault: %s\n"
 "  %s\t\tAdditional arguments for the X server.\n"
@@ -43,21 +45,26 @@ msgstr ""
 "  %s\t\tZusätzliche Argumente für den X-Server.\n"
 "\n"
 
-#: ../main.c:125
+#: ../main.c:121
 msgid "Compile-time defaults:"
-msgstr "Beim Kompillieren gemachte Vorgaben:"
+msgstr "Beim Kompilieren gemachte Vorgaben:"
 
-#: ../main.c:126
+#: ../main.c:122
 #, c-format
 msgid "  Gettext message catalog directory\t%s\n"
 msgstr "  Verzeichnis für Gettext-Nachrichtenkataloge:\t%s\n"
 
-#: ../main.c:127
+#: ../main.c:123
 #, c-format
 msgid "  Session save file\t\t\t~/%s\n"
 msgstr "  Sitzungsspeicherdatei:\t\t\t~/%s\n"
 
-#: ../main.c:134
+#: ../main.c:129
+#, c-format
+msgid "%s v%s (Git revision: %s)\n"
+msgstr "%s v%s (Git-Revision: %s)\n"
+
+#: ../main.c:131
 #, c-format
 msgid ""
 "Compiled on: %s\n"
@@ -66,42 +73,41 @@ msgstr ""
 "Kompilliert am: %s\n"
 "\n"
 
-#: ../main.c:137
+#: ../main.c:134
 msgid "Released under the BSD license."
 msgstr "Veröffentlicht unter der BSD-Lizenz."
 
-#: ../main.c:154
-#: ../main.c:157
+#: ../main.c:151 ../main.c:154
 msgid "Show help options"
 msgstr "Hilfeoptionen anzeigen"
 
-#: ../main.c:159
+#: ../main.c:156
 msgid "Do not clear the screen on program start and end"
 msgstr "Den Bildschirm bei Programmstart und -ende nicht leeren"
 
-#: ../main.c:160
+#: ../main.c:157
 msgid "Use file descriptor FD to output the command string (default: 3)"
 msgstr "Dateideskriptor FD zum Ausgeben des Befehls nutzen (Vorgabe: 3)"
 
-#: ../main.c:164
+#: ../main.c:161
 msgid "Do not remember the last used session"
 msgstr "Sich nicht an die letzte Sitzung erinnern"
 
-#: ../main.c:166
+#: ../main.c:163
 msgid "Display the program version"
 msgstr "Die Programmversion zeigen"
 
-#: ../main.c:194
+#: ../main.c:179
 #, c-format
 msgid "  (%d) %s\n"
 msgstr "  (%d) %s\n"
 
-#: ../main.c:198
+#: ../main.c:183
 #, c-format
 msgid "  (%d) Text: %s\n"
 msgstr "  (%d) Text: %s\n"
 
-#: ../main.c:215
+#: ../main.c:200
 msgid ""
 "\n"
 "Use EOF (e. g. ^D) to quit."
@@ -109,11 +115,11 @@ msgstr ""
 "\n"
 "Benutzen Sie EOF (z. B. ^D) zum Verlassen."
 
-#: ../main.c:328
+#: ../main.c:314
 msgid "Welcome, please choose a session!\n"
 msgstr "Willkommen, bitte wählen Sie eine Sitzung!\n"
 
-#: ../main.c:331
+#: ../main.c:317
 msgid ""
 "Append '!' to the number to prevent remembering your choice.\n"
 "\n"
@@ -121,11 +127,11 @@ msgstr ""
 "Hängen Sie '!' an die Zahl an, damit die Wahl nicht gespeichert wird.\n"
 "\n"
 
-#: ../main.c:334
+#: ../main.c:320
 msgid "  (0) continue using the current shell\n"
 msgstr "  (0) Die aktuelle Shell weiterbenutzen\n"
 
-#: ../main.c:344
+#: ../main.c:331
 #, c-format
 msgid ""
 "\n"
@@ -134,7 +140,16 @@ msgstr ""
 "\n"
 "Ihre Wahl [%s]: "
 
-#: ../main.c:349
+#: ../main.c:332
+#, c-format
+msgid ""
+"\n"
+"Your choice [Text: %s]: "
+msgstr ""
+"\n"
+"Ihre Wahl [Text: %s]: "
+
+#: ../main.c:338
 msgid ""
 "\n"
 "Your choice [<current shell>]: "
@@ -142,7 +157,7 @@ msgstr ""
 "\n"
 "Ihre Wahl [<aktuelle Shell>]: "
 
-#: ../main.c:352
+#: ../main.c:341
 msgid ""
 "\n"
 "Your choice: "
@@ -150,31 +165,32 @@ msgstr ""
 "\n"
 "Ihre Wahl: "
 
-#: ../main.c:371
+#: ../main.c:363
 msgid "There is no default session! Please make a choice."
 msgstr "Es gibt keine Standardsitzung! Bitte treffen Sie eine Wahl."
 
-#: ../main.c:386
+#: ../main.c:378
 msgid "Please enter a number."
 msgstr "Bitte geben Sie eine Zahl ein."
 
-#: ../main.c:402
+#: ../main.c:393
 msgid "No such session. Please try again..."
 msgstr "Keine solche Sitzung. Bitte versuchen Sie es erneut..."
 
-#: ../main.c:414
+#: ../main.c:407
 msgid "Could not process session! Please try again..."
 msgstr "Konnte Sitzung nicht verarbeiten! Bitte versuchen Sie es erneut..."
 
-#: ../main.c:456
+#: ../main.c:458
 msgid "- a text-based session chooser"
 msgstr "- ein textbasierter Sitzungswähler"
 
-#: ../main.c:457
+#: ../main.c:459
 msgid ""
-"Displays a list of available sessions and prints a command line for the chosen session to the\n"
+"Displays a list of available sessions and prints a command line for the "
+"chosen session to the\n"
 "file descriptor given by the -o option."
 msgstr ""
-"Zeigt eine Liste verfügbarer Sitzungen an und gibt einen Befehl für die gewählte Sitzung\n"
+"Zeigt eine Liste verfügbarer Sitzungen an und gibt einen Befehl für die "
+"gewählte Sitzung\n"
 "auf den durch die \"-o\"-Option gegebenen Dateideskriptor aus."
-

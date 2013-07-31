@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-19 20:30+0100\n"
+"POT-Creation-Date: 2013-07-31 15:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../main.c:107
+#: ../main.c:103
 #, c-format
 msgid ""
 "Additionally, the following environment variables are recognized:\n"
@@ -34,121 +34,133 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../main.c:125
+#: ../main.c:121
 msgid "Compile-time defaults:"
 msgstr ""
 
-#: ../main.c:126
+#: ../main.c:122
 #, c-format
 msgid "  Gettext message catalog directory\t%s\n"
 msgstr ""
 
-#: ../main.c:127
+#: ../main.c:123
 #, c-format
 msgid "  Session save file\t\t\t~/%s\n"
 msgstr ""
 
-#: ../main.c:134
+#: ../main.c:129
+#, c-format
+msgid "%s v%s (Git revision: %s)\n"
+msgstr ""
+
+#: ../main.c:131
 #, c-format
 msgid ""
 "Compiled on: %s\n"
 "\n"
 msgstr ""
 
-#: ../main.c:137
+#: ../main.c:134
 msgid "Released under the BSD license."
 msgstr ""
 
-#: ../main.c:154 ../main.c:157
+#: ../main.c:151 ../main.c:154
 msgid "Show help options"
 msgstr ""
 
-#: ../main.c:159
+#: ../main.c:156
 msgid "Do not clear the screen on program start and end"
 msgstr ""
 
-#: ../main.c:160
+#: ../main.c:157
 msgid "Use file descriptor FD to output the command string (default: 3)"
 msgstr ""
 
-#: ../main.c:164
+#: ../main.c:161
 msgid "Do not remember the last used session"
 msgstr ""
 
-#: ../main.c:166
+#: ../main.c:163
 msgid "Display the program version"
 msgstr ""
 
-#: ../main.c:194
+#: ../main.c:179
 #, c-format
 msgid "  (%d) %s\n"
 msgstr ""
 
-#: ../main.c:198
+#: ../main.c:183
 #, c-format
 msgid "  (%d) Text: %s\n"
 msgstr ""
 
-#: ../main.c:215
+#: ../main.c:200
 msgid ""
 "\n"
 "Use EOF (e. g. ^D) to quit."
 msgstr ""
 
-#: ../main.c:328
+#: ../main.c:314
 msgid "Welcome, please choose a session!\n"
 msgstr ""
 
-#: ../main.c:331
+#: ../main.c:317
 msgid ""
 "Append '!' to the number to prevent remembering your choice.\n"
 "\n"
 msgstr ""
 
-#: ../main.c:334
+#: ../main.c:320
 msgid "  (0) continue using the current shell\n"
 msgstr ""
 
-#: ../main.c:344
+#: ../main.c:331
 #, c-format
 msgid ""
 "\n"
 "Your choice [%s]: "
 msgstr ""
 
-#: ../main.c:349
+#: ../main.c:332
+#, c-format
+msgid ""
+"\n"
+"Your choice [Text: %s]: "
+msgstr ""
+
+#: ../main.c:338
 msgid ""
 "\n"
 "Your choice [<current shell>]: "
 msgstr ""
 
-#: ../main.c:352
+#: ../main.c:341
 msgid ""
 "\n"
 "Your choice: "
 msgstr ""
 
-#: ../main.c:371
+#: ../main.c:363
 msgid "There is no default session! Please make a choice."
 msgstr ""
 
-#: ../main.c:386
+#: ../main.c:378
 msgid "Please enter a number."
 msgstr ""
 
-#: ../main.c:402
+#: ../main.c:393
 msgid "No such session. Please try again..."
 msgstr ""
 
-#: ../main.c:414
+#: ../main.c:407
 msgid "Could not process session! Please try again..."
 msgstr ""
 
-#: ../main.c:456
+#: ../main.c:458
 msgid "- a text-based session chooser"
 msgstr ""
 
-#: ../main.c:457
+#: ../main.c:459
 msgid ""
 "Displays a list of available sessions and prints a command line for the "
 "chosen session to the\n"
