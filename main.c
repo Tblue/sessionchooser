@@ -281,7 +281,7 @@ gboolean ask_for_session( SessList *session_list, gchar *last_session )
     GError *error = NULL;
     unsigned int choice;
     char buf[CHOICE_BUF_LEN];
-    char *endptr;
+    char *endptr, *choice_text;
     gchar *session_name;
     SessSession *default_session = NULL;
     SessSession *chosen_session;
@@ -327,7 +327,10 @@ gboolean ask_for_session( SessList *session_list, gchar *last_session )
 
         if( default_session )
         {
-            g_printf( _( "\nYour choice [%s]: " ),
+            choice_text = default_session->use_xinit
+                ? _("\nYour choice [%s]: ") /* X session */
+                : _("\nYour choice [Text: %s]: "); /* Text session */
+            g_printf( choice_text,
                 sess_session_get_name_locale( default_session ) );
         }
         else if( default_is_current_shell )
