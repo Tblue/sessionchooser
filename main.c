@@ -65,6 +65,12 @@ static gint output_fd           = 3;
  *        read nor recorded.
  */
 static gboolean no_lastsession = FALSE;
+/**
+ * @brief If this variable is TRUE, then the stderr of the generated command
+ *        is redirected to /dev/null. Note that currently, stdout is always
+ *        discarded.
+ */
+static gboolean discard_stderr = FALSE;
 
 /**
  * @brief The option context used to parse command line options in main().
@@ -159,6 +165,8 @@ static GOptionEntry options[]   = {
         "FD" },
     { "no-lastsession", 'l', 0, G_OPTION_ARG_NONE, & no_lastsession,
         N_( "Do not remember the last used session" ), NULL },
+    { "discard-stderr", 'S', 0, G_OPTION_ARG_NONE, & discard_stderr,
+        N_( "Redirect stderr of the generated command to /dev/null" ), NULL },
     { "version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
         _opt_info_cb, N_( "Display the program version" ), NULL },
     { NULL, 0, 0, 0, NULL, NULL, NULL }
@@ -231,16 +239,18 @@ gboolean process_session( SessSession *sess )
         if( ( active_vt = get_active_vt() ) != -1 )
         {   /* Start X on the current VT: */
             command = g_strdup_printf( "xinit %s -- :%d vt%hd %s "
-                            "1>/dev/null 2>&1",
+                            "1>/dev/null%s",
                         sess_session_get_exec_locale( sess ), XDisplay,
-                        active_vt, xargs ? xargs : "" );
+                        active_vt, xargs ? xargs : "",
+                        discard_stderr ? " 2>&1" : "" );
         }
         else
         {
             command = g_strdup_printf( "xinit %s -- :%d %s "
-                            "1>/dev/null 2>&1",
+                            "1>/dev/null%s",
                         sess_session_get_exec_locale( sess ), XDisplay,
-                        xargs ? xargs : "" );
+                        xargs ? xargs : "",
+                        discard_stderr ? " 2>&1" : "" );
         }
     }
     else
