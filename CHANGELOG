@@ -1,3 +1,14 @@
+Version 2.1         2014-09-20 Tilman Blumenbach
+    - Session prompt: If the pre-selected choice is a
+      text session, prepend "Text: " to the session name
+      so that it does not look like an X session.
+    - By default, in the generated command, do not discard
+      stderr. This behaviour can be changed with the -S option.
+      This change ensures that sessionchooser works with rootless
+      X11 out-of-the-box.
+    - The Arch Linux PKGBUILD can now be found at:
+      https://github.com/Tblue/archlinux-packages
+
 Version 2.0         2013-07-30 Tilman Blumenbach
     - Remember the last used session by its path. In
       contrast to the previously used session name, the
