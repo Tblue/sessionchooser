@@ -1,0 +1,4 @@
+*.o
+
+# The final program binary.
+/sessionchooser
