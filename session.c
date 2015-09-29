@@ -214,8 +214,6 @@ void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
     GError *error = NULL;
     SessSession *new_sess;
 
-    //~ g_debug( "Parsing files in dir: %s", dir );
-
     gdir = g_dir_open( dir, 0, & error );
     if( error )
     {   /* We cannot do anything apart from showing a warning. */
@@ -233,7 +231,6 @@ void parse_xsession_files_in_dir( gpointer _dir, gpointer _session_list )
             continue;
         }
         
-        //~ g_debug( " Parsing file: %s", file_path );
         sess_desktopentry_read( file_path, & sess_name, & sess_exec,
             & error );
         if( error )
@@ -273,8 +270,6 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
     GError *error = NULL;
     SessSession *new_sess;
 
-    //~ g_debug( "Parsing files in dir: %s", dir );
-
     gdir = g_dir_open( dir, 0, & error );
     if( error )
     {   /* We cannot do anything apart from showing a warning. */
@@ -304,8 +299,6 @@ void parse_textsession_files_in_dir( gpointer _dir, gpointer _session_list )
         {   /* Use original file name. */
             sess_name = file_utf8;
         }
-
-        //~ g_debug( " Adding text session: %s", sess_name );
 
         /* Append new entry to session list: */
         new_sess = sess_session_new();
