@@ -86,7 +86,7 @@ gchar *sess_session_get_path_normalized( SessSession *sess )
 
     if( ! sess->path_normalized )
     {   /* Normalize path. */
-        normalized = g_utf8_normalize( sess->path, -1, G_NORMALIZE_NFD );
+        normalized = g_utf8_normalize( sess->path, -1, G_NORMALIZE_NFC );
         if( ! normalized )
         {   /* Invalid UTF-8 string. Use original string (not perfect!): */
             sess->path_normalized = g_strdup( sess->path );
