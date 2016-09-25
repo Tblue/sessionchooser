@@ -42,7 +42,7 @@
 /**
  * @brief Application version.
  */
-#define SESS_APP_VERSION "2.1"
+#define SESS_APP_VERSION "2.2"
 /**
  * @brief Short application copyright notice.
  *

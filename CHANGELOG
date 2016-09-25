@@ -1,3 +1,9 @@
+Version 2.2         2016-09-25 Tilman Blumenbach
+    - Normalize paths using NFC and not NFD, as recommended
+      here: https://www.win.tue.nl/~aeb/linux/uc/nfc_vs_nfd.html
+    - Remove SESS_GETTEXT_DIR macro as Gettext uses the correct
+      directory by default.
+
 Version 2.1         2014-09-20 Tilman Blumenbach
     - Session prompt: If the pre-selected choice is a
       text session, prepend "Text: " to the session name
