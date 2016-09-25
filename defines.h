@@ -79,10 +79,6 @@
  */
 #define SESS_XARGS_ENV "SESSIONCHOOSER_XARGS"
 /**
- * @brief The directory containing gettext message catalogs.
- */
-#define SESS_GETTEXT_DIR "/usr/share/locale"
-/**
  * @brief Name of the file used to save the last used session.
  *
  * This file resides in the user's home directory.

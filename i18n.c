@@ -37,8 +37,7 @@
 void i18n_init( void )
 {
     setlocale( LC_ALL, "" );
-    if( ! textdomain( SESS_APP_NAME ) ||
-        ! bindtextdomain( SESS_APP_NAME, SESS_GETTEXT_DIR ) )
+    if( ! textdomain( SESS_APP_NAME ) )
     {
         g_error( "Out of memory!" ); /* calls abort() */
     }

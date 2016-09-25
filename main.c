@@ -125,7 +125,6 @@ static gboolean _opt_info_cb( const gchar *opt_name,
             SESS_XARGS_ENV );
 
         puts( _( "Compile-time defaults:" ) );
-        g_printf( _( "  Gettext message catalog directory\t%s\n" ), SESS_GETTEXT_DIR );
         g_printf( _( "  Session save file\t\t\t~/%s\n" ), SESS_LASTSESSION_FILE );
 
         exit( 0 );
