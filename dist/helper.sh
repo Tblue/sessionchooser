@@ -5,7 +5,7 @@
 # the session that has been chosen. Simply source it e. g. from your
 # ~/.bash_login or ~/.zprofile.
 #
-# Copyright (c) 2010-2012, Tilman Blumenbach <tilman AT ax86 DOT net>
+# Copyright (c) 2010-2016, Tilman Blumenbach <tilman AT ax86 DOT net>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
